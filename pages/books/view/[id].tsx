@@ -1,5 +1,5 @@
 
-export default function profile() {
+export default function book() {
     return (
         <div>
 
