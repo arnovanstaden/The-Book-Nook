@@ -106,3 +106,21 @@ input {
     max-width: 1500px;
   }
 }
+
+
+// Buttons
+
+.button {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: $white;
+  background-color: $black;
+  border: 2px solid $black;
+  outline: none;
+  cursor: pointer;
+
+  &-alt {
+    background-color: transparent;
+    color: $black;
+  }
+}

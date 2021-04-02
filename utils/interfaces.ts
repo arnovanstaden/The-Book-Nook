@@ -11,7 +11,7 @@ export interface IPage {
 
 export interface IHeader {
     heading: string;
-    subheading: string;
+    subheading?: string;
 }
 
 export interface IBook {

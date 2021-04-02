@@ -10,7 +10,7 @@ export default function Head({ title }: IHead) {
 
     return (
         <NextHead>
-            <title>{title}</title>
+            <title>{title} | The Book Nook</title>
             <link rel="icon" type="image/png" href="/images/logos/favicon.png" />
             <meta name="description" content="The Book Nook" />
             <meta name="robots" content="noindex, nofollow" />
