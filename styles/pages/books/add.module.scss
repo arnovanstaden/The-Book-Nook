@@ -54,8 +54,41 @@
 }
 
 .saveBookForm {
-    textarea {
-        width: 100%;
-        height: 50vh;
+
+
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+
+        .image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.5rem;
+
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.5rem 0.5rem;
+            border-radius: 0;
+            border: 1px solid $black;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+            font-family: $main-font;
+        }
+
+        textarea {
+            min-height: 15vh;
+        }
     }
 }

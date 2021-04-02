@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
 
 const bookSchema = new mongoose.Schema({
-    id: mongoose.Types.ObjectId(),
-    name: {
+    title: {
         type: String,
         require: true
     },
-    author: {
+    authors: {
         type: String,
         require: true
     },
@@ -31,6 +30,10 @@ const bookSchema = new mongoose.Schema({
         require: true
     },
     user: {
+        type: String,
+        require: true
+    },
+    recommendation: {
         type: String,
         require: true
     }

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const clubSchema = new mongoose.Schema({
-    id: mongoose.Types.ObjectId(),
+    _id: mongoose.Types.ObjectId(),
     name: {
         type: String,
         require: true
