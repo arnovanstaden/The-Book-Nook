@@ -1,0 +1,58 @@
+@import "../../../styles/variables.scss";
+
+.login {
+    height: 100vh;
+    width: 100vw;
+    background-color: $white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        input {
+            margin-bottom: 1rem;
+            width: 100%;
+            padding: 0.5rem 0.5rem;
+            border-radius: 0;
+            border: 1px solid $black;
+            outline: none;
+            box-sizing: border-box;
+            text-align: center;
+
+            &:focus {
+                font-weight: 500;
+            }
+        }
+    }
+
+    .options {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+
+        p {
+            margin: 0;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        span {
+            margin: 0 0.5rem;
+        }
+    }
+}

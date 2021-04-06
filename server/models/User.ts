@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    id: mongoose.Types.ObjectId(),
-    name: {
+    username: {
         type: String,
         require: true
     },
@@ -14,11 +13,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    bio: {
-        type: String,
-        require: true
-    },
-    bookmarked: {
+    bio: String,
+    bookmarks: {
         type: String,
         require: true
     },
@@ -28,4 +24,4 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.models.User || mongoose.model("User", userSchema);

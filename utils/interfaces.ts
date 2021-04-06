@@ -24,3 +24,17 @@ export interface IBook {
     user: string;
     cover: string;
 }
+
+export interface ILogin {
+    handleLoginSuccess: (register: boolean) => void
+}
+
+export interface INotification {
+    text: string
+}
+
+export interface IAuthenticationData {
+    email: string;
+    password: string;
+    username?: string;
+}

@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3",
     "next": "10.0.9",
     "next-connect": "^0.10.1",
