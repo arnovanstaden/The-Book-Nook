@@ -7,6 +7,7 @@ export interface IPage {
     title: string;
     classNameProp?: string;
     noContainer?: boolean
+    center?: boolean;
 }
 
 export interface IHeader {
@@ -23,10 +24,6 @@ export interface IBook {
     year: string;
     user: string;
     cover: string;
-}
-
-export interface ILogin {
-    handleLoginSuccess: (register: boolean) => void
 }
 
 export interface INotification {

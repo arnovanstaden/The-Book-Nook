@@ -11,7 +11,7 @@ export default function Home() {
       title="The Book Nook"
       classNameProp={styles.home}
     >
-
+      <h1>Home Page</h1>
     </Page>
   )
 }

@@ -3,13 +3,16 @@ import axios from "axios";
 
 // Components
 import Page from "../../components/Page/Page";
-import Header from "../../components/UI/Header/Header"
+
+// MUI
+import { Button } from "@material-ui/core"
 
 // Styles
 import styles from "../../styles/pages/books/add.module.scss";
 
 export default function AddBook() {
     const [book, setBook] = useState(undefined);
+    const [option, setOption] = useState(undefined)
     const isbnRef = useRef<HTMLInputElement>()
 
     // Helpers
@@ -67,6 +70,25 @@ export default function AddBook() {
     }
 
     // SubComponetns
+
+    const Options = () => {
+        return (
+            <div className={styles.options}>
+                <h1>Add a new book</h1>
+                <h4>How would you like to add the book data?</h4>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOption("Barcode")}
+                >Scan Barcode</Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOption("ISBN")}
+                >Enter ISBN</Button>
+            </div>
+        )
+    }
 
     const ISBNForm = () => {
         return (
@@ -130,11 +152,8 @@ export default function AddBook() {
         <Page
             title="Add a New Book"
         >
-            <Header
-                heading="Add a New Book"
-            />
-
-            {book ? <SaveBookForm /> : <ISBNForm />}
+            {option ? null : <Options />}
+            {option && option === "ISBN" ? <ISBNForm /> : null}
         </Page>
     )
 }

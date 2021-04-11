@@ -13,8 +13,8 @@ handler.use(connectDB());
 // Create New User
 handler.post(async (req, res) => {
     let authData = req.body;
-    if (authData.register) {
-        registerUser(authData)
+    if (authData.signUp) {
+        signUpUser(authData)
             .then(responseData => {
                 res.status(responseData.status).json({
                     ...responseData
@@ -22,7 +22,7 @@ handler.post(async (req, res) => {
             })
             .catch(err => console.log(err))
     } else {
-        loginUser(authData)
+        signInUser(authData)
             .then(responseData => {
                 res.status(responseData.status).json({
                     ...responseData
@@ -51,7 +51,7 @@ export default handler;
 
 // Utils
 
-async function registerUser(authData) {
+async function signUpUser(authData) {
     let responseData = {}
 
     // Check if User Already Exists
@@ -108,7 +108,7 @@ async function registerUser(authData) {
     return responseData
 }
 
-async function loginUser(authData) {
+async function signInUser(authData) {
     let responseData = {}
 
     const retrievedUser = await UserModel.findOne({
@@ -123,7 +123,7 @@ async function loginUser(authData) {
     if (!retrievedUser) {
         responseData = {
             status: 401,
-            message: "Incorrect Login Details"
+            message: "Incorrect Sign In Details"
         }
         return responseData
     }
@@ -144,7 +144,7 @@ async function loginUser(authData) {
                 delete userResponse.password;
                 return {
                     status: 200,
-                    message: "Login Successful",
+                    message: "Sign In Successful",
                     token: jwtToken,
                     user: userResponse
                 }
@@ -153,7 +153,7 @@ async function loginUser(authData) {
             // Password Doesn't Match
             return {
                 status: 401,
-                message: "Incorrect Login Details"
+                message: "Incorrect Sign In Details"
             }
 
         })

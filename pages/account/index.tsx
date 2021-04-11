@@ -4,14 +4,14 @@ import { getUsername } from "../../utils/user"
 import Header from "../../components/UI/Header/Header";
 import Page from "../../components/Page/Page";
 
-export default function Clubs() {
+export default function Account() {
 
     return (
         <Page
-            title="Your Clubs"
+            title="Your Account"
         >
             <Header
-                heading={`${getUsername("possessive")} Clubs`}
+                heading={`${getUsername("possessive")} Account`}
             />
 
         </Page>

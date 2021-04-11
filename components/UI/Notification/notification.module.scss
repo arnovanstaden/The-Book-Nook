@@ -1,13 +1,6 @@
 @import "../../../styles/variables.scss";
 
-.notification {
+.info,
+.success {
     background-color: $black;
-    padding: 0.5rem 1.5rem;
-    position: fixed;
-
-    p {
-        margin: 0;
-        font-weight: 500;
-        color: $white;
-    }
 }

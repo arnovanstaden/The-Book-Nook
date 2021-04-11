@@ -1,6 +1,6 @@
 import { IHeader } from "../../../utils/interfaces"
 
-
+// Styles
 import styles from "./header.module.scss";
 
 export default function Header({ heading, subheading }: IHeader) {

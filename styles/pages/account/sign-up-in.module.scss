@@ -1,0 +1,16 @@
+@import "../../variables.scss";
+
+.signin {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .options {
+        margin-top: 0.5rem;
+    }
+}

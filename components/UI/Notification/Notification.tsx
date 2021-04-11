@@ -1,14 +1,25 @@
-import { INotification } from "../../../utils/interfaces";
+import { SnackbarProvider } from 'notistack';
+import Grow from '@material-ui/core/Grow';
+
 
 // Styles
-import styles from "./notification.module.scss";
 
+export default function NotificationsProvider({ children }) {
+    const styles = {
+        success: { backgroundColor: '#06070d' },
+        info: { backgroundColor: '#06070d' }
+    };
 
-
-export default function Notification({ text }: INotification) {
     return (
-        <div className={styles.notification}>
-            <p>{text}</p>
-        </div>
+        <SnackbarProvider
+            maxSnack={3}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+            }}
+        // TransitionComponent={Grow}
+        >
+            {children}
+        </SnackbarProvider>
     )
 }

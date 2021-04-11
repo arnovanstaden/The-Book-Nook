@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 // Interfaces
 import { IHead } from "../../utils/interfaces"
 
@@ -5,12 +7,15 @@ import { IHead } from "../../utils/interfaces"
 import NextHead from 'next/head';
 
 export default function Head({ title }: IHead) {
+    // Config
+    const router = useRouter();
+
     const date = new Date();
     const currentYear = date.getFullYear();
 
     return (
         <NextHead>
-            <title>{title} | The Book Nook</title>
+            <title>{title} {router.pathname !== "/" ? " | The Book Nook" : null}</title>
             <link rel="icon" type="image/png" href="/images/logos/favicon.png" />
             <meta name="description" content="The Book Nook" />
             <meta name="robots" content="noindex, nofollow" />

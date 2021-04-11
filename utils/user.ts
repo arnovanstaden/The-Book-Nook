@@ -2,52 +2,67 @@ import axios from "axios";
 import { IAuthenticationData } from "./interfaces";
 
 const getCookie = (name): string => {
-    var cookieArr = document.cookie.split(";");
+    if (typeof window !== 'undefined') {
+        var cookieArr = document.cookie.split(";");
 
-    // Loop through the array elements
-    for (var i = 0; i < cookieArr.length; i++) {
-        var cookiePair = cookieArr[i].split("=");
-        if (name == cookiePair[0].trim()) {
-            // Decode the cookie value and return
-            return decodeURIComponent(cookiePair[1]);
+        // Loop through the array elements
+        for (var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            if (name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
         }
     }
 }
 
-export const getUserName = (): string => {
-    return getCookie("TBNName");
+export const getUsername = (type?: string): string => {
+    let username = "";
+    if (typeof window !== 'undefined') {
+        username = localStorage.getItem("TBN-Username");
+    }
+
+    if (type === "possessive") {
+        if (username.substr(username.length - 1, 1) === "s") {
+            return `${username}'`
+        }
+        return `${username}'s`
+    }
+
+    return username
 }
 
-export const authenticateUser = async (authData: IAuthenticationData, register: boolean) => {
+export const authenticateUser = async (authData: IAuthenticationData, signUp: boolean) => {
     const authResult = await axios({
         method: "POST",
         url: "/api/user",
         data: {
             ...authData,
-            register: register
+            signUp: signUp
         }
     })
         .then(result => {
-            // Save Login
-            document.cookie = `TBNToken=${result.data.token};path=/`;
-            document.cookie = `TBNUsername=${result.data.user.username};path=/`;
-
-            // Notify
+            // Save Credentials
+            document.cookie = `TBN-Token=${result.data.token};path=/`;
+            localStorage.setItem("TBN-Username", result.data.user.username);
+            return result.data.user
+            // [Notify]
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err);
+            throw err
+        })
     return authResult
 }
 
 export const logoutUser = () => {
     localStorage.clear();
-    let tokenCookie = getCookie("TBNToken");
-    let nameCookie = getCookie("TBNToken");
-    document.cookie = `TBNToken=${tokenCookie}; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/`
-    document.cookie = `TBNName=${nameCookie}; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/`
+    let tokenCookie = getCookie("TBN-Token");
+    document.cookie = `TBN-Token=${tokenCookie}; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/`
 }
 
-export const checkLoggedIn = (): boolean => {
-    const loggedIn = getCookie("TBNToken");
+export const checkAuth = (): boolean => {
+    const loggedIn = getCookie("TBN-Token");
     if (!loggedIn) {
         return false
     }
