@@ -1,12 +1,18 @@
+import { useContext } from "react";
 
 // Components
 import Page from "../components/Page/Page";
 import withAuth from "../components/HOC/withAuth"
 
+// Context
+import { LoaderContext } from "../context/loader";
+
 // Styles
 import styles from '../styles/pages/index.module.scss'
 
 const Home = () => {
+
+
   return (
     <Page
       title="The Book Nook"

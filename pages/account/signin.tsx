@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 
 // Context
 import { UserContext } from "../../context/user"
+import { LoaderContext } from "../../context/loader";
 
 // Components
 import Page from "../../components/Page/Page"
@@ -23,6 +24,7 @@ export default function SignIn() {
     const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const { user, login } = useContext(UserContext);
+    const { showLoader, hideLoader } = useContext(LoaderContext);
 
     // Check Already SignedIn
     useEffect(() => {
@@ -34,6 +36,7 @@ export default function SignIn() {
 
     // Handlers
     const handleAuth = (e) => {
+        showLoader()
         e.preventDefault();
 
         let form = document.getElementById("auth-form") as HTMLFormElement;
@@ -58,7 +61,7 @@ export default function SignIn() {
 
         authenticateUser(authData, false)
             .then(data => {
-                console.log(data)
+                hideLoader()
                 login(data.user)
                 enqueueSnackbar(data.message, {
                     variant: 'success',
@@ -66,6 +69,7 @@ export default function SignIn() {
                 router.replace("/")
             })
             .catch(err => {
+                hideLoader()
                 enqueueSnackbar(err.message, {
                     variant: 'error',
                 });

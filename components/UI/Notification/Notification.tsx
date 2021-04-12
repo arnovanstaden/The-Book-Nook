@@ -1,7 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 import Grow from '@material-ui/core/Grow';
 
-
 // Styles
 
 export default function NotificationsProvider({ children }) {
