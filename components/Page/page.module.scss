@@ -1,5 +1,9 @@
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.page {
+    padding: 1rem 0;
+
+    &center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

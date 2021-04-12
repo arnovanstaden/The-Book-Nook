@@ -15,10 +15,10 @@ import styles from "./page.module.scss"
 export default function Layout(props: IPage) {
 
     const mainClasses = classnames(
+        styles.page,
         props.classNameProp ? props.classNameProp : null,
         props.center ? styles.center : null
     )
-
 
     return (
         <>

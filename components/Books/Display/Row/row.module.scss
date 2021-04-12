@@ -1,0 +1,46 @@
+@import "../../../../styles/variables.scss";
+
+.book {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-bottom: 0.5px solid $grey;
+    padding: 1rem 0;
+    column-gap: 1rem;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+
+    &:hover {
+        background-color: rgba($color: grey, $alpha: .2);
+        padding: 1.2rem 0;
+    }
+
+    .image {
+        max-height: 8rem;
+
+        img {
+            object-fit: contain;
+            object-position: center center;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .author {
+            font-size: 0.9rem;
+            color: $grey;
+            margin: 0;
+        }
+    }
+}

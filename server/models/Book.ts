@@ -15,7 +15,6 @@ const bookSchema = new mongoose.Schema({
     },
     pages: {
         type: Number,
-        require: true
     },
     rating: {
         type: Number,
@@ -23,7 +22,6 @@ const bookSchema = new mongoose.Schema({
     },
     year: {
         type: String,
-        require: true
     },
     cover: {
         type: String,
