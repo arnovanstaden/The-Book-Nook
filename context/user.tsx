@@ -23,12 +23,12 @@ export const UserProvider = ({ children }) => {
 
     // Logout updates the user data to default
     const logout = () => {
+        router.replace("/account/signin");
         setUser(() => ({
             username: null,
             auth: false,
         }));
         logoutUser();
-        router.replace("/account/signin")
     };
 
     return (

@@ -19,7 +19,7 @@ export default function Nav() {
 
     // Subcomponents
 
-    const AccountOptions = () => {
+    const MenuItems = () => {
         // State
         const [anchorEl, setAnchorEl] = useState(null);
 
@@ -42,44 +42,7 @@ export default function Nav() {
 
         return (
             <div>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenuOpen}
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                >
-                    <MenuItem onClick={handleMenuClose}>
-                        <Link href="/account/">
-                            <a>
-                                Profile
-                            </a>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
-            </div>
-        )
-    }
 
-    return (
-        <AppBar position="static">
-            <Toolbar component="nav" className={styles.nav}>
-                <Link href="/">
-                    <a className={styles.logo}>
-                        <img src="/images/logos/logo-icon-white.svg" alt="The Book Nook Logomark" />
-                        The Book Nook
-                    </a>
-                </Link>
                 <div className={styles.right}>
                     <Link href="/">
                         <a className={styles.item}>
@@ -96,10 +59,48 @@ export default function Nav() {
                             Clubs
                         </a>
                     </Link>
-                    {user && user.auth ? <AccountOptions /> : null}
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenuOpen}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleMenuClose}
+                    >
+                        <MenuItem onClick={handleMenuClose}>
+                            <Link href="/account/">
+                                <a>
+                                    Profile
+                            </a>
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Menu>
                 </div>
+            </div>
+        )
+    }
+
+    return (
+        <AppBar position="static">
+            <Toolbar component="nav" className={styles.nav}>
+                <Link href="/">
+                    <a className={styles.logo}>
+                        <img src="/images/logos/logo-icon-white.svg" alt="The Book Nook Logomark" />
+                        The Book Nook
+                    </a>
+                </Link>
+                {user && user.auth ? <MenuItems /> : null}
             </Toolbar>
-        </AppBar>
+        </AppBar >
     )
 }
 
