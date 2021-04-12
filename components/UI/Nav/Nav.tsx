@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useSnackbar } from 'notistack';
 
 // Context
@@ -15,38 +15,38 @@ import styles from "./nav.module.scss";
 export default function Nav() {
     // Config 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-    // State
     const { user, logout } = useContext(UserContext);
-    const [anchorEl, setAnchorEl] = useState(null);
-
-
-    // Handlers
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleLogout = () => {
-        handleClose();
-        logout();
-        enqueueSnackbar('Logout Successful', {
-            variant: 'success',
-        });
-    }
 
     // Subcomponents
+
     const AccountOptions = () => {
+        // State
+        const [anchorEl, setAnchorEl] = useState(null);
+
+        // Handlers
+        const handleMenuClose = () => {
+            setAnchorEl(null);
+        };
+
+        const handleMenuOpen = (event) => {
+            setAnchorEl(event.currentTarget);
+        };
+
+        const handleLogout = () => {
+            handleMenuClose();
+            logout();
+            enqueueSnackbar('Logout Successful', {
+                variant: 'success',
+            });
+        }
+
         return (
             <div>
                 <IconButton
                     aria-label="account of current user"
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
-                    onClick={handleMenu}
+                    onClick={handleMenuOpen}
                     color="inherit"
                 >
                     <AccountCircle />
@@ -56,9 +56,9 @@ export default function Nav() {
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                    onClose={handleMenuClose}
                 >
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={handleMenuClose}>
                         <Link href="/account/">
                             <a>
                                 Profile
@@ -96,7 +96,7 @@ export default function Nav() {
                             Clubs
                         </a>
                     </Link>
-                    {user.auth ? <AccountOptions /> : null}
+                    {user && user.auth ? <AccountOptions /> : null}
                 </div>
             </Toolbar>
         </AppBar>

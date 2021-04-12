@@ -25,7 +25,7 @@ export default function Head({ title }: IHead) {
             <meta name="theme-color" content="#ffffff" />
 
             {/* PWA */}
-            <link rel="manifest" href="/manifest.json" />
+            {/* <link rel="manifest" href="/manifest.json" /> */}
             <link rel="apple-touch-icon" href="/images/logos/icon.png" />
             <link rel="apple-touch-startup-icon" href="/images/logos/icon.png" />
             <meta name="apple-mobile-web-app-capable" content="yes" />

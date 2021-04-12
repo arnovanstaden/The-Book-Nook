@@ -3,8 +3,9 @@ import { getUsername } from "../../utils/user"
 // Components
 import Header from "../../components/UI/Header/Header";
 import Page from "../../components/Page/Page";
+import withAuth from "../../components/HOC/withAuth";
 
-export default function Clubs() {
+const Clubs = () => {
 
     return (
         <Page
@@ -17,3 +18,5 @@ export default function Clubs() {
         </Page>
     )
 }
+
+export default withAuth(Clubs)

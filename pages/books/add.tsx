@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Components
 import Page from "../../components/Page/Page";
+import withAuth from "../../components/HOC/withAuth";
 
 // MUI
 import { Button } from "@material-ui/core"
@@ -10,7 +11,7 @@ import { Button } from "@material-ui/core"
 // Styles
 import styles from "../../styles/pages/books/add.module.scss";
 
-export default function AddBook() {
+const AddBook = () => {
     const [book, setBook] = useState(undefined);
     const [option, setOption] = useState(undefined)
     const isbnRef = useRef<HTMLInputElement>()
@@ -157,3 +158,5 @@ export default function AddBook() {
         </Page>
     )
 }
+
+export default withAuth(AddBook)

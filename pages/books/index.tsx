@@ -3,11 +3,12 @@ import axios from "axios"
 // Components
 import Page from "../../components/Page/Page";
 import Header from "../../components/UI/Header/Header";
+import withAuth from "../../components/HOC/withAuth";
 
 // Styles
 import styles from "../../styles/pages/books/index.module.scss";
 
-export default function index({ books }) {
+const Books = ({ books }) => {
     return (
         <Page
             title="Books"
@@ -36,3 +37,5 @@ export async function getServerSideProps(context) {
         props: { books },
     }
 }
+
+export default withAuth(Books)

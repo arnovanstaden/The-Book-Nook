@@ -24,8 +24,6 @@ export default function SignIn() {
     // Config
     const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-    // Context
     const { user, login } = useContext(UserContext);
 
     // Check Already SignedIn
@@ -128,7 +126,7 @@ export default function SignIn() {
                             </Grid>
                             <Grid item>
                                 <Link href="/account/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    {"Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>

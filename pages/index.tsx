@@ -1,11 +1,12 @@
 
 // Components
-import Page from "../components/Page/Page"
+import Page from "../components/Page/Page";
+import withAuth from "../components/HOC/withAuth"
 
 // Styles
 import styles from '../styles/pages/index.module.scss'
 
-export default function Home() {
+const Home = () => {
   return (
     <Page
       title="The Book Nook"
@@ -15,3 +16,5 @@ export default function Home() {
     </Page>
   )
 }
+
+export default withAuth(Home)
