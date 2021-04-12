@@ -1,11 +1,15 @@
 import { authenticateUser, checkAuth } from "../../utils/user";
 import { useRouter } from 'next/router';
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useSnackbar } from 'notistack';
 
+// Context
+import { UserContext } from "../../context/user"
 
 // Components
 import Page from "../../components/Page/Page"
 
+// MUI
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -19,14 +23,15 @@ import styles from "../../styles/pages/account/sign-up-in.module.scss"
 export default function SignUp() {
     // Config
     const router = useRouter();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { user, login } = useContext(UserContext);
 
     // Check Already SignedIn
     useEffect(() => {
-        if (checkAuth()) {
+        if (user.auth) {
             router.replace("/")
         }
     }, [])
-
 
     // Handlers
     const handleAuth = (e) => {
@@ -53,14 +58,17 @@ export default function SignUp() {
         authData.email = authData.email.toLowerCase();
 
         authenticateUser(authData, true)
-            .then(result => {
-                router.replace("/")
+            .then(data => {
+                login(data.user)
+                enqueueSnackbar(data.message, {
+                    variant: 'success',
+                });
+                router.replace("/account")
             })
             .catch(err => {
-                console.log(err);
-
-                // [Notify]
-                alert("Invalid Credentials")
+                enqueueSnackbar(err.message, {
+                    variant: 'error',
+                });
             })
     }
 
@@ -85,6 +93,7 @@ export default function SignUp() {
                             label="Your Name"
                             name="username"
                             autoFocus
+                            type="text"
                         />
                         <TextField
                             variant="outlined"
@@ -94,6 +103,7 @@ export default function SignUp() {
                             id="email"
                             label="Email Address"
                             name="email"
+                            type="email"
                         />
                         <TextField
                             variant="outlined"
@@ -121,7 +131,7 @@ export default function SignUp() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/account/signup">
+                                <Link href="/account/signin">
                                     {"Already have an account? Sign In"}
                                 </Link>
                             </Grid>

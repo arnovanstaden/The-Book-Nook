@@ -123,7 +123,7 @@ async function signInUser(authData) {
     if (!retrievedUser) {
         responseData = {
             status: 401,
-            message: "Incorrect Sign In Details"
+            message: "Incorrect Credentials"
         }
         return responseData
     }
@@ -144,7 +144,7 @@ async function signInUser(authData) {
                 delete userResponse.password;
                 return {
                     status: 200,
-                    message: "Sign In Successful",
+                    message: `Welcome back ${retrievedUser.username}`,
                     token: jwtToken,
                     user: userResponse
                 }
@@ -153,7 +153,7 @@ async function signInUser(authData) {
             // Password Doesn't Match
             return {
                 status: 401,
-                message: "Incorrect Sign In Details"
+                message: "Incorrect Credentials"
             }
 
         })

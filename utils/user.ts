@@ -45,12 +45,12 @@ export const authenticateUser = async (authData: IAuthenticationData, signUp: bo
             // Save Credentials
             document.cookie = `TBN-Token=${result.data.token};path=/`;
             localStorage.setItem("TBN-Username", result.data.user.username);
-            return result.data.user
-            // [Notify]
+            return result.data
         })
         .catch(err => {
             console.log(err);
-            throw err
+            throw err.response.data;
+            // return err.response.data
         })
     return authResult
 }

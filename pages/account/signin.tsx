@@ -3,10 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useContext } from "react";
 import { useSnackbar } from 'notistack';
 
-
 // Context
 import { UserContext } from "../../context/user"
-
 
 // Components
 import Page from "../../components/Page/Page"
@@ -59,18 +57,18 @@ export default function SignIn() {
         authData.email = authData.email.toLowerCase();
 
         authenticateUser(authData, false)
-            .then(user => {
-                login(user)
-                enqueueSnackbar('Login Successful', {
+            .then(data => {
+                console.log(data)
+                login(data.user)
+                enqueueSnackbar(data.message, {
                     variant: 'success',
                 });
                 router.replace("/")
             })
             .catch(err => {
-                console.log(err);
-
-                // [Notify]
-                alert("Invalid Credentials")
+                enqueueSnackbar(err.message, {
+                    variant: 'error',
+                });
             })
     }
 
@@ -97,6 +95,7 @@ export default function SignIn() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            type="email"
                         />
                         <TextField
                             variant="outlined"
