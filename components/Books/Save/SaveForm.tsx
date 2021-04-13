@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useSnackbar } from 'notistack';
 import { useRouter } from "next/router";
+import { saveBook } from "../../../utils/books"
 
 // Context
 import { LoaderContext } from "../../../context/loader";
@@ -29,7 +30,9 @@ const SaveBookForm = ({ book }) => {
         // Validate
         let form = document.getElementById("save-book-form") as HTMLFormElement;
         if (form.checkValidity() === false) {
-            return alert("Please complete all the relevant fields")
+            return enqueueSnackbar("Please complete all the relevant fields", {
+                variant: 'error',
+            });
         }
 
         e.preventDefault();
@@ -47,26 +50,22 @@ const SaveBookForm = ({ book }) => {
 
         // Send Data
         showLoader()
-
-        axios({
-            method: "POST",
-            url: "/api/books",
-            data: bookData
-        })
-            .then(result => {
-                router.push(`/books/view/${result.data._id}`)
-                enqueueSnackbar("Book saved Successfully", {
+        saveBook(bookData)
+            .then(saveResult => {
+                router.push(`/books/view/${saveResult.book._id}`)
+                enqueueSnackbar(saveResult.message, {
                     variant: 'success',
                 });
                 hideLoader();
             })
             .catch(err => {
                 hideLoader();
-                enqueueSnackbar("Error Saving Book", {
+                enqueueSnackbar(err.message, {
                     variant: 'error',
                 });
                 console.log(err)
             })
+
     }
 
 

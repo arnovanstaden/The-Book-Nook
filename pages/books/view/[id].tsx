@@ -1,5 +1,5 @@
 
-export default function book() {
+export default function ViewBook() {
     return (
         <div>
 

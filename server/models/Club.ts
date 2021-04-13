@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const clubSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     members: [String],
     books: [String]
@@ -11,4 +11,6 @@ const clubSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = mongoose.model('Club', clubSchema);
+module.exports = ;
+module.exports = mongoose.models.Club || mongoose.model('Club', clubSchema);
+

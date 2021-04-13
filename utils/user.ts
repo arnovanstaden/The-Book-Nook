@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IAuthenticationData } from "./interfaces";
 
-const getCookie = (name): string => {
+export const getCookie = (name: string): string => {
     if (typeof window !== 'undefined') {
         var cookieArr = document.cookie.split(";");
 
@@ -50,7 +50,6 @@ export const authenticateUser = async (authData: IAuthenticationData, signUp: bo
         .catch(err => {
             console.log(err);
             throw err.response.data;
-            // return err.response.data
         })
     return authResult
 }

@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 
 const handler = nextConnect();
-
 handler.use(connectDB());
 
 // Get Books for User

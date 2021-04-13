@@ -3,37 +3,37 @@ import mongoose from 'mongoose';
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
-        require: true
+        required: true
     },
     authors: {
         type: String,
-        require: true
+        required: true
     },
     genre: {
         type: String,
-        require: true
+        required: true
     },
     pages: {
         type: Number,
     },
     rating: {
         type: Number,
-        require: true
+        required: true
     },
     year: {
         type: String,
     },
     cover: {
         type: String,
-        require: true
+        required: true
     },
     user: {
         type: String,
-        require: true
+        required: true
     },
     recommendation: {
         type: String,
-        require: true
+        required: true
     }
 },
     { timestamps: true }
