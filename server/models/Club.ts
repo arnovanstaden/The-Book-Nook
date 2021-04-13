@@ -11,6 +11,9 @@ const clubSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = ;
-module.exports = mongoose.models.Club || mongoose.model('Club', clubSchema);
+clubSchema.set('toJSON', {
+    virtuals: true
+});
+
+export default mongoose.models.Club || mongoose.model('Club', clubSchema);
 

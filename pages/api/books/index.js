@@ -2,7 +2,7 @@ import nextConnect from 'next-connect';
 import connectDB from '../../../server/middleware/database';
 import jwtAuth from '../../../server/middleware/auth';
 import BookModel from "../../../server/models/Book";
-import UserModel from "../../../server/models/User";
+import { getBooksForUser } from "../../../server/utils/books";
 
 
 const handler = nextConnect();
@@ -12,26 +12,30 @@ handler.use("/", jwtAuth);
 
 // Get Books for User
 handler.get(async (req, res) => {
-  res.status(200).send(user);
+  let responseData = {}
+
+  const books = await getBooksForUser(req.user.id, "id")
+    .then(books => books)
+    .catch(err => console.log(err))
+
+  if (!books) {
+    responseData = {
+      status: 500,
+      message: `Error Finding Books`,
+    }
+    return res.status(500).json(responseData);
+  }
+
+  return res.status(200).json(books);
 })
 
 // Create New Book
 handler.post(async (req, res) => {
   let responseData = {}
 
-  // Get User
-  const user = await getUserByEmail(req.profile.email);
-  if (!user) {
-    responseData = {
-      status: 404,
-      message: "No User Found"
-    }
-    return res.status()
-  }
-
   // Save Book
   let book = new BookModel({ ...req.body });
-  book.user = user._id
+  book.user = req.user.id;
   book.save(function (err, book) {
     if (err) {
       console.error(err);
@@ -47,7 +51,7 @@ handler.post(async (req, res) => {
       message: `Book Saved Successfully`,
       book: book
     }
-    res.status(200).json(responseData);
+    return res.status(200).json(responseData);
   });
 })
 
@@ -67,12 +71,3 @@ handler.delete(async (req, res) => {
 export default handler;
 
 
-
-// Utils
-
-async function getUserByEmail(email) {
-  let user = await UserModel.findOne({
-    email: email
-  });
-  return user
-}

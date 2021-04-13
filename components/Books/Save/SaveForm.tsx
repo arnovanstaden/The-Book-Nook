@@ -52,7 +52,7 @@ const SaveBookForm = ({ book }) => {
         showLoader()
         saveBook(bookData)
             .then(saveResult => {
-                router.push(`/books/view/${saveResult.book._id}`)
+                router.push(`/books/view/${saveResult.book.id}`)
                 enqueueSnackbar(saveResult.message, {
                     variant: 'success',
                 });

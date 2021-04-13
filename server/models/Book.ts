@@ -39,4 +39,8 @@ const bookSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = mongoose.models.Book || mongoose.model("Book", bookSchema);
+bookSchema.set('toJSON', {
+    virtuals: true
+});
+
+export default mongoose.models.Book || mongoose.model("Book", bookSchema);

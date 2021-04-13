@@ -1,18 +1,11 @@
 import axios from "axios";
 import { IAuthenticationData } from "./interfaces";
+import Cookies from "cookie"
 
 export const getCookie = (name: string): string => {
     if (typeof window !== 'undefined') {
-        var cookieArr = document.cookie.split(";");
-
-        // Loop through the array elements
-        for (var i = 0; i < cookieArr.length; i++) {
-            var cookiePair = cookieArr[i].split("=");
-            if (name == cookiePair[0].trim()) {
-                // Decode the cookie value and return
-                return decodeURIComponent(cookiePair[1]);
-            }
-        }
+        const cookies = Cookies.parse(document.cookie)
+        return cookies[name]
     }
 }
 
@@ -43,7 +36,7 @@ export const authenticateUser = async (authData: IAuthenticationData, signUp: bo
     })
         .then(result => {
             // Save Credentials
-            document.cookie = `TBN-Token=${result.data.token};path=/`;
+            document.cookie = `TBN-Token=${result.data.token};path=/;Max-Age=43200;Secure;SameSite=Strict`;
             localStorage.setItem("TBN-Username", result.data.user.username);
             return result.data
         })

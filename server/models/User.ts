@@ -24,4 +24,8 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = mongoose.models.User || mongoose.model("User", userSchema);
+userSchema.set('toJSON', {
+    virtuals: true
+});
+
+export default mongoose.models.User || mongoose.model("User", userSchema);

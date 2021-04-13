@@ -82,7 +82,8 @@ async function signUpUser(authData) {
         .then(user => {
             const payload = {
                 email: user.email,
-                password: user.password
+                password: user.password,
+                id: user.id
             }
             const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);
             const userResponse = ({ ...user._doc })
@@ -135,7 +136,8 @@ async function signInUser(authData) {
             if (doMatch) {
                 const payload = {
                     email: retrievedUser.email,
-                    password: retrievedUser.password
+                    password: retrievedUser.password,
+                    id: retrievedUser.id
                 }
                 const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);
 

@@ -6,6 +6,16 @@ const connectDB = () => async (req, res, next) => {
         return next();
     }
     // Use new db connection
+    await createDBConnection()
+    return next();
+};
+
+export async function createDBConnection() {
+    if (mongoose.connections[0].readyState) {
+        // Use current db connection
+        return
+    }
+
     await mongoose.connect(process.env.MONGODB_URI, {
         useUnifiedTopology: true,
         useFindAndModify: false,
@@ -16,9 +26,6 @@ const connectDB = () => async (req, res, next) => {
             console.log("Database Connected");
         })
         .catch(err => console.log(err))
-    return next();
-};
-
-
+}
 
 export default connectDB;

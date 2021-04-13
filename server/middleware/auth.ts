@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { verifyJWT } from "../utils/user";
 
 const jwtAuth = (req, res, next) => {
     const authHeader = req.headers["authorization"];
@@ -11,14 +12,17 @@ const jwtAuth = (req, res, next) => {
     }
 
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, profile) => {
-        if (err) {
-            return res.status(403)
+    const user = verifyJWT(token);
+    if (!user) {
+        let responseData = {
+            status: 401,
+            message: "Unauthorized"
         }
-        req.profile = profile
-        console.log("User Authenticated")
-        next()
-    })
+        return res.status(401).json(responseData)
+    }
+    req.user = user;
+    console.log("User Authenticated")
+    next()
 }
 
 export default jwtAuth

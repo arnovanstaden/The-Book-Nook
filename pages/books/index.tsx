@@ -1,5 +1,7 @@
 import axios from "axios";
-import Link from "next/link"
+import Link from "next/link";
+import Cookies from "cookie";
+import { getBooksForUser } from "../../server/utils/books"
 
 // Components
 import Page from "../../components/Page/Page";
@@ -14,18 +16,18 @@ import { Add } from "@material-ui/icons"
 // Styles
 import styles from "../../styles/pages/books/index.module.scss";
 
-const Books = ({ books }) => {
+const Books = ({ userBooks }) => {
+    const books = JSON.parse(userBooks);
+    console.log(books);
+
     return (
         <Page
             title="Books"
         >
-            <Header
-                heading="Jane's Books"
-                subheading="3 Books"
-            />
             <div className={styles.grid}>
 
             </div>
+
             <Fab color="primary" aria-label="add" className={styles.addButton}>
                 <Link href="/books/add">
                     <Add />
@@ -35,18 +37,25 @@ const Books = ({ books }) => {
     )
 }
 
-// export async function getServerSideProps(context) {
-//     const books = await axios({
-//         method: "GET",
-//         url: "/api/books",
-//         data: {
-//             // user
-//         }
-//     })
+export default withAuth(Books);
 
-//     return {
-//         props: { books },
-//     }
-// }
 
-export default withAuth(Books)
+// Props
+export async function getServerSideProps(context) {
+    const cookies = Cookies.parse(context.req.headers.cookie);
+    const token = cookies["TBN-Token"];
+
+    const booksResult = await getBooksForUser(token, "token")
+        .then(result => {
+            return result
+        })
+        .catch(err => {
+            console.log(err)
+        });
+
+    const userBooks = JSON.stringify(booksResult);
+
+    return {
+        props: { userBooks },
+    }
+}
