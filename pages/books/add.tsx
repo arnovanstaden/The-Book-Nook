@@ -8,7 +8,7 @@ import SearchForm from "../../components/Books/Find/SearchForm";
 import SaveBookForm from "../../components/Books/Save/SaveForm";
 
 // MUI
-import { Button, TextField } from "@material-ui/core"
+import { Button, Typography } from "@material-ui/core"
 
 // Styles
 import styles from "../../styles/pages/books/add.module.scss";
@@ -22,22 +22,25 @@ const AddBook = () => {
     const Options = () => {
         return (
             <div className={styles.options}>
-                <h1>Add a new book</h1>
-                <h4>How would you like to add the book data?</h4>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setOption("Search")}
-                >
-                    Seach Author &amp; Title
+                <Typography variant="h3">Add Book</Typography>
+                <Typography variant="subtitle1">How would you like to add the book data?</Typography>
+                <div className={styles.buttons}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setOption("Search")}
+                    >
+                        Seach Author &amp; Title
                 </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setOption("ISBN")}
-                >
-                    Enter ISBN Number
+                    <p>or</p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setOption("ISBN")}
+                    >
+                        Enter ISBN Number
                     </Button>
+                </div>
             </div>
         )
     }

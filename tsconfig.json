@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/api/books/books.js", "pages/api/user/user.js", "ppages/api/grpahql/graphql.js, "pages/api/clubs/clubs.js"  ],
+, "pages/api/books/books.js", "pages/api/user/user.js", "pages/api/grpahql/graphql.js", "pages/api/clubs/clubs.js"],
   "exclude": [
     "node_modules"
   ]
