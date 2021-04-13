@@ -1,8 +1,8 @@
 import nextConnect from 'next-connect';
-import connectDB from '../../../server/middleware/database';
-import jwtAuth from '../../../server/middleware/auth';
-import BookModel from "../../../server/models/Book";
-import { getBooksForUser } from "../../../server/utils/books";
+import connectDB from '../../server/middleware/database';
+import jwtAuth from '../../server/middleware/auth';
+import BookModel from "../../server/models/Book";
+import { getBooksForUser } from "../../server/utils/books";
 
 
 const handler = nextConnect();

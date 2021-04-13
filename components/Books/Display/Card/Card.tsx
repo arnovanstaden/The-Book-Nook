@@ -1,5 +1,5 @@
 // Interfaces
-import { IBook } from "../../utils/interfaces"
+import { IBook } from "../../../../utils/interfaces"
 
 // Styles
 import styles from "./book.module.scss";

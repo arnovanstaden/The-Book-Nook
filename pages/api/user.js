@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect';
-import connectDB from '../../../server/middleware/database';
-import UserModel from "../../../server/models/User";
+import connectDB from '../../server/middleware/database';
+import UserModel from "../../server/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 
