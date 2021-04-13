@@ -1,13 +1,18 @@
+
 import Link from "next/link";
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useSnackbar } from 'notistack';
+
 
 // Context
 import { UserContext } from '../../../context/user';
 
 // MUI
-import { AppBar, Toolbar, Button, Typography, Menu, MenuItem, IconButton } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { AppBar, Toolbar, Menu, MenuItem, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { AccountCircle, MenuBook, Group, Home, ExitToApp } from '@material-ui/icons';
+import MenuIcon from '@material-ui/icons/Menu';
+import { useMediaQuery } from '@material-ui/core';
+
 
 // Styles, Images
 import styles from "./nav.module.scss";
@@ -16,6 +21,15 @@ export default function Nav() {
     // Config 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const { user, logout } = useContext(UserContext);
+
+    // Handlers
+
+    const handleLogout = () => {
+        logout();
+        enqueueSnackbar('Logout Successful', {
+            variant: 'success',
+        });
+    }
 
     // Subcomponents
 
@@ -32,13 +46,11 @@ export default function Nav() {
             setAnchorEl(event.currentTarget);
         };
 
-        const handleLogout = () => {
+        const handleMenuLogout = () => {
             handleMenuClose();
-            logout();
-            enqueueSnackbar('Logout Successful', {
-                variant: 'success',
-            });
+            handleLogout()
         }
+
 
         return (
             <div>
@@ -78,13 +90,98 @@ export default function Nav() {
                         <MenuItem onClick={handleMenuClose}>
                             <Link href="/account/">
                                 <a>
-                                    Profile
+                                    Account
                             </a>
                             </Link>
                         </MenuItem>
-                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                        <MenuItem onClick={handleMenuLogout}>Logout</MenuItem>
                     </Menu>
                 </div>
+            </div>
+        )
+    }
+
+    // Mobile Nav
+    const mobileDevice = useMediaQuery('(max-width:600px)');
+    const MobileNav = () => {
+
+        const [drawer, setDrawer] = useState(false)
+
+        const handleDrawerToggle = (anchor, open) => (event) => {
+            if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+                return;
+            }
+
+            setDrawer(prevState => !prevState);
+        };
+
+        return (
+            <div className={styles.mobileNav}>
+                <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerToggle("right", true)}>
+                    <MenuIcon />
+                </IconButton>
+                <React.Fragment key={"right"}>
+                    <SwipeableDrawer
+                        anchor={"right"}
+                        open={drawer}
+                        onClose={handleDrawerToggle("right", false)}
+                        onOpen={handleDrawerToggle("right", true)}
+                    >
+                        <List
+                            onClick={handleDrawerToggle("right", true)}
+                            className={styles.list}
+                        >
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <Home />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    <Link href="/">
+                                        Home
+                                    </Link>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <Group />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    <Link href="/clubs">
+                                        Clubs
+                                    </Link>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <MenuBook />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    <Link href="/books">
+                                        Books
+                                    </Link>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <AccountCircle />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    <Link href="/account">
+                                        Account
+                                    </Link>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ExitToApp />
+                                </ListItemIcon>
+                                <ListItemText onClick={handleLogout}>
+                                    Logout
+                                </ListItemText>
+                            </ListItem>
+                        </List>
+                    </SwipeableDrawer>
+                </React.Fragment>
             </div>
         )
     }
@@ -98,7 +195,9 @@ export default function Nav() {
                         The Book Nook
                     </a>
                 </Link>
-                {user && user.auth ? <MenuItems /> : null}
+                {mobileDevice ?
+                    <MobileNav />
+                    : user && user.auth ? <MenuItems /> : null}
             </Toolbar>
         </AppBar >
     )

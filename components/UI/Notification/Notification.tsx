@@ -1,5 +1,4 @@
 import { SnackbarProvider } from 'notistack';
-import Grow from '@material-ui/core/Grow';
 
 // Styles
 
@@ -16,7 +15,6 @@ export default function NotificationsProvider({ children }) {
                 vertical: 'top',
                 horizontal: 'center',
             }}
-        // TransitionComponent={Grow}
         >
             {children}
         </SnackbarProvider>
