@@ -1,6 +1,6 @@
 import classnames from "classnames"
-import { useRouter } from "next/router";
-import { useContext } from "react";
+import Router from "next/router";
+import { useContext, useEffect } from "react";
 
 
 // Interfaces
@@ -18,21 +18,26 @@ import Container from "@material-ui/core/Container";
 // Styles
 import styles from "./page.module.scss"
 
+
 export default function Layout(props: IPage) {
     // Config
-    const router = useRouter();
     const { showLoader, hideLoader } = useContext(LoaderContext);
 
     // Route Change Loader
-    const handleRouteChangeStart = () => {
-        showLoader()
-    }
-    const handleRouteChangeComplete = () => {
-        hideLoader()
-    }
+    useEffect(() => {
+        const handleRouteChangeStart = () => {
+            showLoader()
+        }
+        const handleRouteChangeComplete = () => {
+            hideLoader()
+        }
 
-    router.events.on('routeChangeStart', handleRouteChangeStart)
-    router.events.on('routeChangeComplete', handleRouteChangeComplete)
+        Router.events.on('routeChangeStart', handleRouteChangeStart)
+
+        return () => {
+            Router.events.on('routeChangeComplete', handleRouteChangeComplete)
+        }
+    }, [])
 
     const mainClasses = classnames(
         styles.page,
