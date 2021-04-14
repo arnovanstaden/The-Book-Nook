@@ -25,7 +25,7 @@ import Group from '@material-ui/icons/Group';
 import Home from '@material-ui/icons/Home';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import MenuBook from '@material-ui/icons/MenuBook';
-import { useMediaQuery } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 // Styles, Images
@@ -115,7 +115,7 @@ export default function Nav() {
     }
 
     // Mobile Nav
-    const mobileDevice = useMediaQuery('(max-width:600px)');
+    const ismobileDevice = useMediaQuery('(max-width:600px)');
     const MobileNav = () => {
 
         const [drawer, setDrawer] = useState(false)
@@ -208,7 +208,7 @@ export default function Nav() {
                         The Book Nook
                     </a>
                 </Link>
-                {mobileDevice ?
+                {ismobileDevice ?
                     user && user.auth ? <MobileNav /> : null
                     : user && user.auth ? <MenuItems /> : null}
             </Toolbar>

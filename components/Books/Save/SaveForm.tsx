@@ -13,9 +13,9 @@ import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
 import Fab from "@material-ui/core/Fab";
-import FindReplace from "@material-ui/icons/FindReplace"
-
-
+import FindReplace from "@material-ui/icons/FindReplace";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // Styles
 import styles from "./save.module.scss"
 
@@ -25,6 +25,8 @@ const SaveBookForm = ({ book, setBook }) => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const { showLoader, hideLoader } = useContext(LoaderContext);
     const router = useRouter()
+    const isMobileDevice = useMediaQuery('(max-width:600px)');
+    console.log(isMobileDevice)
 
     // State
     const [rating, setRating] = useState(2.5);
@@ -93,6 +95,11 @@ const SaveBookForm = ({ book, setBook }) => {
                     }}
                 >
                     <div className={styles.overlay}>
+                        {isMobileDevice
+                            ? <button className={styles.resetButton} onClick={() => setBook(undefined)}>
+                                <ChevronLeftIcon />
+                            </button>
+                            : null}
                         <div className={styles.image}>
                             <img src={book.thumbnail} alt={`${book.title} Cover`} />
                         </div>
@@ -213,7 +220,8 @@ const SaveBookForm = ({ book, setBook }) => {
                     </Button>
                 </Grid>
             </Grid >
-            {!book.isbnSearch ?
+            {!book.isbnSearch && !isMobileDevice
+                ?
                 <Fab
                     color="primary"
                     aria-label="search"

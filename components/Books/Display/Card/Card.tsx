@@ -16,6 +16,16 @@ interface ICard {
 
 export default function Book({ book, setBook }: ICard) {
 
+    // handlers
+
+    const handleBookSelect = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+        setBook(book);
+    }
+
     // subcomponents
     const CardContent = () => {
         return (
@@ -35,7 +45,7 @@ export default function Book({ book, setBook }: ICard) {
     if (setBook) {
         return (
             <Grid item xs={6} sm={4} md={3} lg={2}
-                onClick={() => setBook(book)}
+                onClick={handleBookSelect}
             >
                 <CardContent />
             </Grid>

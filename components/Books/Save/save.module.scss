@@ -20,6 +20,20 @@
             height: 100%;
             padding: 2rem 1rem;
             text-align: center;
+            position: relative;
+
+            .resetButton {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                background-color: rgba($color: $white, $alpha: 0.75);
+                border: none;
+                padding: 0.25rem;
+
+                svg {
+                    vertical-align: middle;
+                }
+            }
 
             .image {
                 img {
