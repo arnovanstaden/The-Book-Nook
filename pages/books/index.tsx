@@ -8,7 +8,10 @@ import { v4 as uuid } from 'uuid';
 // Components
 import Page from "../../components/Page/Page";
 import withAuth from "../../components/HOC/withAuth";
-import BookCard from "../../components/Books/Display/Card/Card"
+import BookCard from "../../components/Books/Display/Card/Card";
+
+// MUI
+import Grid from '@material-ui/core/Grid';
 
 // MUI
 import Fab from "@material-ui/core/Fab"
@@ -26,11 +29,11 @@ const Books = ({ userBooks }) => {
             title="Books"
         >
             <h1 className="title">Your Books</h1>
-            <div className={styles.grid}>
+            <Grid container spacing={3}>
                 {books.map(book => (
                     <BookCard {...book} key={uuid()} />
                 ))}
-            </div>
+            </Grid>
 
             <Fab color="primary" aria-label="add" className={styles.addButton}>
                 <Link href="/books/add">

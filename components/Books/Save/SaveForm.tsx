@@ -10,7 +10,6 @@ import { LoaderContext } from "../../../context/loader";
 // MUI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import Rating from '@material-ui/lab/Rating';
 
 // Styles
@@ -78,30 +77,29 @@ const SaveBookForm = ({ book }) => {
     const authors = book.authors.length > 1 ? book.authors.join(" ") : book.authors;
 
     return (
-        <div className={styles.save}>
-            <div
-                className={styles.cover}
-                style={{
-                    backgroundImage: `url(${book.imageLinks.thumbnail})`,
-                    backgroundPosition: "center center",
-                    backgroundSize: "cover"
+        <form name="save-book-form" id="save-book-form" onSubmit={handleSaveBook}>
+            <input type="text" name="cover" defaultValue={book.imageLinks.thumbnail} readOnly hidden />
+            <input type="text" name="title" defaultValue={book.title} readOnly hidden />
+            <input type="text" name="authors" defaultValue={authors} readOnly hidden />
 
-                }}
-            >
-                <div className={styles.overlay}>
-                    <div className={styles.image}>
-                        {book.imageLinks ? <img src={book.imageLinks.thumbnail} alt={book.title} /> : null}
+            <div className={styles.save}>
+                <div className={styles.cover}
+                    style={{
+                        backgroundImage: `url(${book.imageLinks.thumbnail})`,
+                        backgroundPosition: "center center",
+                        backgroundSize: "cover"
+
+                    }}
+                >
+                    <div className={styles.overlay}>
+                        <div className={styles.image}>
+                            {book.imageLinks ? <img src={book.imageLinks.thumbnail} alt={book.title} /> : null}
+                        </div>
+                        <h4>{book.title}</h4>
+                        <p>by {authors}</p>
                     </div>
-                    <h4>{book.title}</h4>
-                    <p>by {authors}</p>
                 </div>
-            </div>
-            <div className={styles.details}>
-                <form name="save-book-form" id="save-book-form" onSubmit={handleSaveBook}>
-
-                    <input type="text" name="cover" defaultValue={book.imageLinks.thumbnail} readOnly hidden />
-                    <input type="text" name="title" defaultValue={book.title} readOnly hidden />
-                    <input type="text" name="authors" defaultValue={authors} readOnly hidden />
+                <div className={styles.stats}>
                     {pageCount
                         ? <TextField
                             variant="outlined"
@@ -140,6 +138,8 @@ const SaveBookForm = ({ book }) => {
                         type="text"
                         defaultValue={genre}
                     />
+                </div>
+                <div className={styles.text}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -152,7 +152,6 @@ const SaveBookForm = ({ book }) => {
                         multiline
                     />
 
-                    <Divider />
 
                     <TextField
                         variant="outlined"
@@ -163,7 +162,7 @@ const SaveBookForm = ({ book }) => {
                         name="recommendation"
                         type="text"
                         multiline
-                        rows={3}
+                        rows={4}
                     />
                     <div className={styles.rating}>
                         <h6>Your Rating: </h6>
@@ -185,9 +184,9 @@ const SaveBookForm = ({ book }) => {
                     >
                         Save Book
                     </Button>
-                </form>
-            </div>
-        </div >
+                </div>
+            </div >
+        </form>
     )
 }
 
