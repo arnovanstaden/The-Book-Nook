@@ -1,12 +1,14 @@
 import axios from "axios";
 import Link from "next/link";
 import Cookies from "cookie";
-import { getBooksForUser } from "../../server/utils/books"
+import { getBooksForUser } from "../../server/utils/books";
+import { v4 as uuid } from 'uuid';
+
 
 // Components
 import Page from "../../components/Page/Page";
-import Header from "../../components/UI/Header/Header";
 import withAuth from "../../components/HOC/withAuth";
+import BookCard from "../../components/Books/Display/Card/Card"
 
 // MUI
 import Fab from "@material-ui/core/Fab"
@@ -18,14 +20,16 @@ import styles from "../../styles/pages/books/index.module.scss";
 
 const Books = ({ userBooks }) => {
     const books = JSON.parse(userBooks);
-    console.log(books);
 
     return (
         <Page
             title="Books"
         >
+            <h1 className="title">Your Books</h1>
             <div className={styles.grid}>
-
+                {books.map(book => (
+                    <BookCard {...book} key={uuid()} />
+                ))}
             </div>
 
             <Fab color="primary" aria-label="add" className={styles.addButton}>

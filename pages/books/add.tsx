@@ -9,7 +9,6 @@ import SaveBookForm from "../../components/Books/Save/SaveForm";
 
 // MUI
 import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
 
 // Styles
 import styles from "../../styles/pages/books/add.module.scss";
@@ -23,8 +22,8 @@ const AddBook = () => {
     const Options = () => {
         return (
             <div className={styles.options}>
-                <Typography variant="h3">Add Book</Typography>
-                <Typography variant="subtitle1">How would you like to add the book data?</Typography>
+                <h1 className="title">Add A New Book</h1>
+                <h6 className="subtitle">How would you like to add the book data?</h6>
                 <div className={styles.buttons}>
                     <Button
                         variant="contained"

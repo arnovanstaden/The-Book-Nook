@@ -16,14 +16,15 @@ export interface IHeader {
 }
 
 export interface IBook {
-    name: string;
-    author: string;
+    title: string;
+    authors: string;
     genre: string;
     pages: number;
     rating: number;
     year: string;
     user: string;
     cover: string;
+    id: string;
 }
 
 export interface INotification {

@@ -5,6 +5,16 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+
+    .input {
+        input {
+            text-align: center !important;
+        }
+
+        input::placeholder {
+            text-align: center !important;
+        }
+    }
 }
 
 .searchButton {

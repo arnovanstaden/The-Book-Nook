@@ -55,11 +55,13 @@ const SearchForm = ({ setBook }) => {
                     });
                     return
                 }
-                enqueueSnackbar(`${result.data.items.length} results found`, {
+                const filteredResults = result.data.items.filter(book => book.volumeInfo.imageLinks);
+                console.log(filteredResults)
+                enqueueSnackbar(`${filteredResults.length} results found`, {
                     variant: 'success',
                 });
 
-                setResults(result.data.items)
+                setResults(filteredResults)
                 hideLoader()
             })
             .catch(err => {
@@ -75,7 +77,10 @@ const SearchForm = ({ setBook }) => {
     const Form = () => {
         return (
             <div className={styles.form} >
+                <h1 className="title">Search Author &amp; Title</h1>
+                <h6 className="subtitle">Please enter the relevant info below:</h6>
                 <TextField
+                    className={styles.input}
                     variant="outlined"
                     margin="normal"
                     required
@@ -86,6 +91,7 @@ const SearchForm = ({ setBook }) => {
                     inputRef={titleRef}
                 />
                 <TextField
+                    className={styles.input}
                     variant="outlined"
                     margin="normal"
                     required
@@ -101,21 +107,25 @@ const SearchForm = ({ setBook }) => {
                 >
                     Search Books
                 </Button>
-            </div >
+            </div>
         )
     }
     const SearchResults = () => {
         return (
-            <div className={styles.results}>
-                {results.map(book => (
-                    <BookRow
-                        searchResult={true}
-                        book={book.volumeInfo}
-                        setBook={setBook}
-                        key={uuid()}
-                    />
-                ))}
-            </div>
+            <>
+                <h1 className="title">Results</h1>
+                <h6 className="subtitle">Please choose one of the books below:</h6>
+                <div className={styles.results}>
+                    {results.map(book => (
+                        <BookRow
+                            searchResult={true}
+                            book={book.volumeInfo}
+                            setBook={setBook}
+                            key={uuid()}
+                        />
+                    ))}
+                </div>
+            </>
         )
     }
 

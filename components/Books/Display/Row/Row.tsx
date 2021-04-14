@@ -11,16 +11,19 @@ const BookRow = ({ searchResult, book, setBook }) => {
 
 
     // Change Book Data
-    const authors = book.authors.join(" ")
+    let authors;
+    if (book.authors) {
+        authors = book.authors.length > 1 ? book.authors.join(" ") : book.authors;
+    } else {
+        return null
+    }
 
     // SubComponents
     const SearchResult = () => {
         return (
             <div className={styles.book} onClick={() => setBook(book)}>
                 <div className={styles.image}>
-                    {book.imageLinks
-                        ? <img src={book.imageLinks.thumbnail} alt={`${book.title} Cover`} />
-                        : <img src="/images/other/no-cover.png" alt="No Cover" />}
+                    <img src={book.imageLinks.thumbnail} alt={`${book.title} Cover`} />
                 </div>
                 <div className={styles.details}>
                     <h4 className={styles.title}>{book.title}</h4>

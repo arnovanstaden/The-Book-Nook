@@ -37,10 +37,22 @@ main {
   box-sizing: border-box;
 }
 
-input {
-  font-family: $main-font;
+// Typography
+.title {
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  font-family: $heading-font;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
+.subtitle {
+  margin-top: 0;
+  color: $grey;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
 
 // Scrollbar
 ::-webkit-scrollbar {
@@ -60,87 +72,20 @@ input {
       background: $black;
     }
   }
-
 }
 
-
-// Container
-
-.container {
-  width: 100%;
-  padding: 0 1rem;
-  margin-right: auto;
-  margin-left: auto;
-  box-sizing: border-box;
+// Reset 
+input {
+  font-family: $main-font;
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-    padding: 0 2rem;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .container {
-    max-width: 1500px;
-  }
-}
-
-// Divider
-.divider {
-  margin: 1.5rem 0;
-  height: 1px;
-  width: 100%;
-  background-color: $grey;
-}
-
-
-// Buttons
-
-.button {
-  padding: 0.4rem 1.5rem;
-  font-weight: 500;
-  color: $white;
-  background-color: $black;
-  border: 2px solid $black;
-  outline: none;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-
-  &:hover {
-    background-color: transparent;
-    color: $black;
-  }
-
-  &-alt {
-    background-color: transparent;
-    color: $black;
-
-    &:hover {
-      color: $white;
-      background-color: $black;
-    }
-  }
-
-
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
