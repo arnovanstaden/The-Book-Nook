@@ -68,7 +68,6 @@ export default function Nav() {
 
         return (
             <div>
-
                 <div className={styles.right}>
                     <Link href="/">
                         <a className={styles.item}>
@@ -210,7 +209,7 @@ export default function Nav() {
                     </a>
                 </Link>
                 {mobileDevice ?
-                    <MobileNav />
+                    user && user.auth ? <MobileNav /> : null
                     : user && user.auth ? <MenuItems /> : null}
             </Toolbar>
         </AppBar >

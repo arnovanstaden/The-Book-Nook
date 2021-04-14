@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
 // Components
 import AppWrap from "../components/AppWrap/AppWrap"
+
+
 
 // Fonts, styles, icons, themes
 import "typeface-raleway";
@@ -10,6 +12,8 @@ import '../styles/global.scss';
 import "../assets/icons/style.css";
 
 function MyApp({ Component, pageProps }) {
+
+
 
   // Fix MUI 
   useEffect(() => {
