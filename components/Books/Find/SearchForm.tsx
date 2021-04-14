@@ -7,14 +7,14 @@ import { v4 as uuid } from 'uuid';
 import { LoaderContext } from "../../../context/loader";
 
 // Components
-import BookRow from "../Display/Row/Row"
+import BookCard from "../Display/Card/Card"
 
 // MUI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
-import Image from "@material-ui/icons/Image"
 import FindReplace from "@material-ui/icons/FindReplace"
+import Grid from '@material-ui/core/Grid';
 
 // Styles
 import styles from "./search.module.scss";
@@ -55,13 +55,48 @@ const SearchForm = ({ setBook }) => {
                     });
                     return
                 }
-                const filteredResults = result.data.items.filter(book => book.volumeInfo.imageLinks);
-                console.log(filteredResults)
-                enqueueSnackbar(`${filteredResults.length} results found`, {
+
+                // Get VolumeInfo Only
+                const booksArray = [];
+                result.data.items.forEach(result => {
+                    booksArray.push(result.volumeInfo)
+                })
+
+                // Refactor & Remove ISBN Numbers
+                booksArray.forEach(book => {
+                    // Iterate over identifiers
+                    if (book.industryIdentifiers) {
+                        book.industryIdentifiers.forEach(item => {
+                            if (item.type === "ISBN_13") {
+                                book.isbnNumber = item.identifier
+                            }
+                        })
+                    }
+                });
+
+                let filteredBooks = booksArray.filter(book => book.isbnNumber);
+
+
+
+                // Refactor & Remove Thumbnails
+                filteredBooks = filteredBooks.filter(book => book.imageLinks);
+                filteredBooks.forEach(book => {
+                    book.thumbnail = book.imageLinks.thumbnail
+                })
+
+                // Add Cover Images from Open Library
+                filteredBooks.forEach(book => {
+                    book.cover = {
+                        small: `http://covers.openlibrary.org/b/isbn/${book.isbnNumber}-M.jpg`,
+                        large: `http://covers.openlibrary.org/b/isbn/${book.isbnNumber}-L.jpg`,
+                    }
+                })
+
+                enqueueSnackbar(`${filteredBooks.length} results found`, {
                     variant: 'success',
                 });
 
-                setResults(filteredResults)
+                setResults(filteredBooks)
                 hideLoader()
             })
             .catch(err => {
@@ -89,6 +124,7 @@ const SearchForm = ({ setBook }) => {
                     autoFocus
                     type="text"
                     inputRef={titleRef}
+                    size="medium"
                 />
                 <TextField
                     className={styles.input}
@@ -99,6 +135,7 @@ const SearchForm = ({ setBook }) => {
                     name="author"
                     type="text"
                     inputRef={authorRef}
+                    size="medium"
                 />
                 <Button
                     variant="contained"
@@ -115,16 +152,15 @@ const SearchForm = ({ setBook }) => {
             <>
                 <h1 className="title">Results</h1>
                 <h6 className="subtitle">Please choose one of the books below:</h6>
-                <div className={styles.results}>
+                <Grid container spacing={3}>
                     {results.map(book => (
-                        <BookRow
-                            searchResult={true}
-                            book={book.volumeInfo}
+                        <BookCard
+                            book={book}
                             setBook={setBook}
                             key={uuid()}
                         />
                     ))}
-                </div>
+                </Grid>
             </>
         )
     }

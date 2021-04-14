@@ -11,6 +11,8 @@ import { LoaderContext } from "../../../context/loader";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
+import Grid from '@material-ui/core/Grid';
+
 
 // Styles
 import styles from "./save.module.scss"
@@ -40,13 +42,15 @@ const SaveBookForm = ({ book }) => {
 
         // Get Data
         let bookData = {
-            rating: null
+            rating: null,
+            cover: ""
         }
         let formData = new FormData(form);
         for (var key of formData.keys()) {
             bookData[key] = formData.get(key)
         }
         bookData.rating = rating;
+        bookData.cover = book.cover
         console.log(bookData)
 
         // Send Data
@@ -78,28 +82,48 @@ const SaveBookForm = ({ book }) => {
 
     return (
         <form name="save-book-form" id="save-book-form" onSubmit={handleSaveBook}>
-            <input type="text" name="cover" defaultValue={book.imageLinks.thumbnail} readOnly hidden />
-            <input type="text" name="title" defaultValue={book.title} readOnly hidden />
-            <input type="text" name="authors" defaultValue={authors} readOnly hidden />
-
-            <div className={styles.save}>
-                <div className={styles.cover}
+            <input type="text" name="thumbnail" defaultValue={book.thumbnail} readOnly hidden />
+            <Grid container spacing={3} className={styles.save}>
+                <Grid item xs={12} md={4}
+                    className={styles.cover}
                     style={{
-                        backgroundImage: `url(${book.imageLinks.thumbnail})`,
-                        backgroundPosition: "center center",
-                        backgroundSize: "cover"
-
+                        backgroundImage: `url(${book.cover.large})`,
                     }}
                 >
                     <div className={styles.overlay}>
                         <div className={styles.image}>
-                            {book.imageLinks ? <img src={book.imageLinks.thumbnail} alt={book.title} /> : null}
+                            <img src={book.thumbnail} alt={`${book.title} Cover`} />
                         </div>
                         <h4>{book.title}</h4>
                         <p>by {authors}</p>
                     </div>
-                </div>
-                <div className={styles.stats}>
+                </Grid>
+                <Grid item xs={12} md={8}
+                    className={styles.stats}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        label="Title"
+                        name="title"
+                        type="text"
+                        defaultValue={book.title}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        label="Authors"
+                        name="authors"
+                        type="text"
+                        defaultValue={authors}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
                     {pageCount
                         ? <TextField
                             variant="outlined"
@@ -138,8 +162,9 @@ const SaveBookForm = ({ book }) => {
                         type="text"
                         defaultValue={genre}
                     />
-                </div>
-                <div className={styles.text}>
+                </Grid>
+                <Grid item xs={12}
+                    className={styles.text}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -184,8 +209,8 @@ const SaveBookForm = ({ book }) => {
                     >
                         Save Book
                     </Button>
-                </div>
-            </div >
+                </Grid>
+            </Grid >
         </form>
     )
 }

@@ -31,7 +31,7 @@ const Books = ({ userBooks }) => {
             <h1 className="title">Your Books</h1>
             <Grid container spacing={3}>
                 {books.map(book => (
-                    <BookCard {...book} key={uuid()} />
+                    <BookCard book={book} key={uuid()} />
                 ))}
             </Grid>
 

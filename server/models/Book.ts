@@ -24,6 +24,16 @@ const bookSchema = new mongoose.Schema({
         type: String,
     },
     cover: {
+        small: {
+            type: String,
+            required: true
+        },
+        large: {
+            type: String,
+            required: true
+        }
+    },
+    thumbnail: {
         type: String,
         required: true
     },

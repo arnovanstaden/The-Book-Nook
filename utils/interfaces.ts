@@ -23,7 +23,11 @@ export interface IBook {
     rating: number;
     year: string;
     user: string;
-    cover: string;
+    cover: {
+        small: string;
+        large: string
+    };
+    thumbnail: string;
     id: string;
 }
 

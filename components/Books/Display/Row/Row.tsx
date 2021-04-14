@@ -9,7 +9,6 @@ import styles from "./row.module.scss";
 
 const BookRow = ({ searchResult, book, setBook }) => {
 
-
     // Change Book Data
     let authors;
     if (book.authors) {
@@ -23,7 +22,7 @@ const BookRow = ({ searchResult, book, setBook }) => {
         return (
             <div className={styles.book} onClick={() => setBook(book)}>
                 <div className={styles.image}>
-                    <img src={book.imageLinks.thumbnail} alt={`${book.title} Cover`} />
+                    <img src={book.thumbnail} alt={`${book.title} Cover`} />
                 </div>
                 <div className={styles.details}>
                     <h4 className={styles.title}>{book.title}</h4>
