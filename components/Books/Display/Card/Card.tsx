@@ -33,21 +33,24 @@ export default function Book({ book, setBook }: ICard) {
 
     // If used in Save Book Search Results
     if (setBook) {
-        <Grid item xs={6} sm={4} md={3} lg={2}
-            onClick={() => setBook(book)}
-        >
-            <CardContent />
-        </Grid>
+        console.log("here")
+        return (
+            <Grid item xs={6} sm={4} md={3} lg={2}
+                onClick={() => setBook(book)}
+            >
+                <CardContent />
+            </Grid>
+        )
     }
 
     return (
-        <Grid item xs={6} sm={4} md={3} lg={2}
-            onClick={() => setBook(book)}
-        >
+        <Grid item xs={6} sm={4} md={3} lg={2}        >
             <Link
                 href={`books/view/${book.id}`}
             >
-                <CardContent />
+                <a>
+                    <CardContent />
+                </a>
             </Link>
         </Grid>
 
