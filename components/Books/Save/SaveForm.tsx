@@ -16,6 +16,8 @@ import Fab from "@material-ui/core/Fab";
 import FindReplace from "@material-ui/icons/FindReplace";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Tooltip from '@material-ui/core/Tooltip';
+
 // Styles
 import styles from "./save.module.scss"
 
@@ -222,14 +224,16 @@ const SaveBookForm = ({ book, setBook }) => {
             </Grid >
             {!book.isbnSearch && !isMobileDevice
                 ?
-                <Fab
-                    color="primary"
-                    aria-label="search"
-                    className="fab"
-                    onClick={() => setBook(undefined)}
-                >
-                    <FindReplace />
-                </Fab>
+                <Tooltip title="Back To Search Results" aria-label="Back To Search Results">
+                    <Fab
+                        color="primary"
+                        aria-label="search"
+                        className="fab"
+                        onClick={() => setBook(undefined)}
+                    >
+                        <FindReplace />
+                    </Fab>
+                </Tooltip>
                 : null}
         </form>
     )

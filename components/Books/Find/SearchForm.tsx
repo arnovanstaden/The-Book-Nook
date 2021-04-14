@@ -15,6 +15,7 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import FindReplace from "@material-ui/icons/FindReplace"
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Styles
 import styles from "./search.module.scss";
@@ -49,7 +50,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
         })
             .then(result => {
                 if (result.data.totalItems < 1) {
-                    enqueueSnackbar("There are no searchResults for your search. Please ensure you've entered the ISBN number correctly.", {
+                    enqueueSnackbar("There are no search results for your search. Please ensure you've entered the ISBN number correctly.", {
                         variant: 'error',
                     });
                     return
@@ -91,7 +92,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
                     }
                 })
 
-                enqueueSnackbar(`${filteredBooks.length} searchResults found`, {
+                enqueueSnackbar(`${filteredBooks.length} Search Results found`, {
                     variant: 'success',
                 });
 
@@ -145,14 +146,17 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
                         Search Books
                 </Button>
                 </div>
-                <Fab
-                    color="primary"
-                    aria-label="search"
-                    className="fab"
-                    onClick={() => setOption(undefined)}
-                >
-                    <FindReplace />
-                </Fab>
+                <Tooltip title="Reset Search Method" aria-label="Reset Search Method">
+
+                    <Fab
+                        color="primary"
+                        aria-label="search"
+                        className="fab"
+                        onClick={() => setOption(undefined)}
+                    >
+                        <FindReplace />
+                    </Fab>
+                </Tooltip>
             </>
         )
     }
@@ -178,14 +182,16 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
         <>
             { searchResults ? <SearchResults /> : <Form />}
             {searchResults ?
-                <Fab
-                    color="primary"
-                    aria-label="search"
-                    className="fab"
-                    onClick={() => setSearchResults(null)}
-                >
-                    <FindReplace />
-                </Fab>
+                <Tooltip title="Reset Search" aria-label="Reset Search">
+                    <Fab
+                        color="primary"
+                        aria-label="search"
+                        className="fab"
+                        onClick={() => setSearchResults(null)}
+                    >
+                        <FindReplace />
+                    </Fab>
+                </Tooltip>
                 : null}
         </>
     )

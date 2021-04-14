@@ -16,6 +16,7 @@ import Grid from '@material-ui/core/Grid';
 // MUI
 import Fab from "@material-ui/core/Fab"
 import Add from "@material-ui/icons/Add"
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 // Styles
@@ -34,16 +35,17 @@ const Books = ({ userBooks }) => {
                     <BookCard book={book} key={uuid()} />
                 ))}
             </Grid>
-
-            <Fab
-                color="primary"
-                aria-label="add"
-                className="fab"
-            >
-                <Link href="/books/add">
-                    <Add />
-                </Link>
-            </Fab>
+            <Tooltip title="Add New Book" aria-label="Add New Book">
+                <Fab
+                    color="primary"
+                    aria-label="add"
+                    className="fab"
+                >
+                    <Link href="/books/add">
+                        <Add />
+                    </Link>
+                </Fab>
+            </Tooltip>
         </Page>
     )
 }

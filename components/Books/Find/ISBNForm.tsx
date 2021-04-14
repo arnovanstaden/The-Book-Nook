@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab"
 import FindReplace from "@material-ui/icons/FindReplace"
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Styles
 import styles from "./search.module.scss";
@@ -110,14 +111,16 @@ const ISBNForm = ({ setBook, setOption }) => {
                     Find Book
                 </Button>
             </div>
-            <Fab
-                color="primary"
-                aria-label="search"
-                className="fab"
-                onClick={() => setOption(undefined)}
-            >
-                <FindReplace />
-            </Fab>
+            <Tooltip title="Reset Search Method" aria-label="Reset Search Method">
+                <Fab
+                    color="primary"
+                    aria-label="search"
+                    className="fab"
+                    onClick={() => setOption(undefined)}
+                >
+                    <FindReplace />
+                </Fab>
+            </Tooltip>
         </>
     )
 }
