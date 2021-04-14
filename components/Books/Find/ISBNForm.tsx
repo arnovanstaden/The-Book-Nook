@@ -46,6 +46,25 @@ const ISBNForm = ({ setBook }) => {
                     return
                 }
                 let bookResult = result.data.items[0].volumeInfo;
+
+                // Refactor & Remove ISBN Numbers
+                if (bookResult.industryIdentifiers) {
+                    bookResult.industryIdentifiers.forEach(item => {
+                        if (item.type === "ISBN_13") {
+                            bookResult.isbnNumber = item.identifier
+                        }
+                    })
+                }
+
+                // Add Covers from Open Library 
+                bookResult.cover = {
+                    small: `http://covers.openlibrary.org/b/isbn/${bookResult.isbnNumber}-M.jpg`,
+                    large: `http://covers.openlibrary.org/b/isbn/${bookResult.isbnNumber}-L.jpg`,
+                }
+
+                bookResult.thumbnail = bookResult.imageLinks.thumbnail
+                console.log(bookResult)
+
                 enqueueSnackbar("Book Data Found", {
                     variant: 'success',
                 });
