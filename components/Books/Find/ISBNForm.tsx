@@ -89,8 +89,10 @@ const ISBNForm = ({ setBook, setOption }) => {
     return (
         <>
             <div className={styles.form}>
-                <h1 className="title">Search by ISBN</h1>
-                <h6 className="subtitle">Please enter the ISBN number below:</h6>
+                <div className="heading center">
+                    <h1 className="title">Search by ISBN</h1>
+                    <h6 className="subtitle">Please enter the ISBN number below:</h6>
+                </div>
                 <TextField
                     className={styles.input}
                     variant="outlined"

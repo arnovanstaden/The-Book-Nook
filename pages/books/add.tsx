@@ -24,8 +24,10 @@ const AddBook = () => {
     const Options = () => {
         return (
             <div className={styles.options}>
-                <h1 className="title">Add A New Book</h1>
-                <h6 className="subtitle">How would you like to add the book data?</h6>
+                <div className="heading center">
+                    <h1 className="title">Add A New Book</h1>
+                    <h6 className="subtitle">How would you like to add the book data?</h6>
+                </div>
                 <div className={styles.buttons}>
                     <Button
                         variant="contained"

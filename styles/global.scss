@@ -38,20 +38,27 @@ main {
 }
 
 // Typography
-.title {
-  font-size: 2rem;
-  letter-spacing: 0.5px;
-  font-family: $heading-font;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
+.heading {
+  margin-bottom: 1.5rem;
 
-.subtitle {
-  margin-top: 0;
-  color: $grey;
-  font-size: 1.05rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
+  &.center {
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+    font-family: $heading-font;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: $grey;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
 }
 
 // Scrollbar

@@ -113,8 +113,10 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
         return (
             <>
                 <div className={styles.form} >
-                    <h1 className="title">Search Author &amp; Title</h1>
-                    <h6 className="subtitle">Please enter the relevant info below:</h6>
+                    <div className="heading center">
+                        <h1 className="title">Search Author &amp; Title</h1>
+                        <h6 className="subtitle">Please enter the relevant info below:</h6>
+                    </div>
                     <TextField
                         className={styles.input}
                         variant="outlined"
@@ -163,9 +165,11 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
     const SearchResults = () => {
         return (
             <>
-                <h1 className="title">Results</h1>
-                <h6 className="subtitle">Please choose one of the books below:</h6>
-                <Grid container spacing={3}>
+                <div className="heading center">
+                    <h1 className="title">Results</h1>
+                    <h6 className="subtitle">Please choose one of the books below:</h6>
+                </div>
+                <Grid container spacing={3} justify="center">
                     {searchResults.map(book => (
                         <BookCard
                             book={book}

@@ -29,8 +29,11 @@ const Books = ({ userBooks }) => {
         <Page
             title="Books"
         >
-            <h1 className="title">Your Books</h1>
-            <Grid container spacing={3}>
+            <div className="heading center">
+                <h1 className="title">Your Books</h1>
+            </div>
+
+            <Grid container spacing={3} justify="center">
                 {books.map(book => (
                     <BookCard book={book} key={uuid()} />
                 ))}
