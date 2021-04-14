@@ -7,7 +7,8 @@ import { v4 as uuid } from 'uuid';
 import { LoaderContext } from "../../../context/loader";
 
 // Components
-import BookCard from "../Display/Card/Card"
+import BookCard from "../Display/Card/Card";
+import Heading from "../../UI/Headings/Heading/Heading"
 
 // MUI
 import TextField from "@material-ui/core/TextField";
@@ -113,10 +114,11 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
         return (
             <>
                 <div className={styles.form} >
-                    <div className="heading center">
-                        <h1 className="title">Search Author &amp; Title</h1>
-                        <h6 className="subtitle">Please enter the relevant info below:</h6>
-                    </div>
+                    <Heading
+                        title="Search Author &amp; Title"
+                        subtitle="Please enter the relevant info below:"
+                        center
+                    />
                     <TextField
                         className={styles.input}
                         variant="outlined"
@@ -165,10 +167,11 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
     const SearchResults = () => {
         return (
             <>
-                <div className="heading center">
-                    <h1 className="title">Results</h1>
-                    <h6 className="subtitle">Please choose one of the books below:</h6>
-                </div>
+                <Heading
+                    title="Results"
+                    subtitle="Please choose one of the books below:"
+                    center
+                />
                 <Grid container spacing={3} justify="center">
                     {searchResults.map(book => (
                         <BookCard

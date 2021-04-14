@@ -1,0 +1,25 @@
+@import "../../../../styles/variables.scss";
+
+
+.heading {
+    margin-bottom: 1.5rem;
+
+    &.center {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+        letter-spacing: 0.5px;
+        font-family: $heading-font;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    h6 {
+        margin: 0;
+        color: $grey;
+        font-size: 1.05rem;
+        font-weight: 500;
+    }
+}

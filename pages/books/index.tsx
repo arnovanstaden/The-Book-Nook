@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 import Page from "../../components/Page/Page";
 import withAuth from "../../components/HOC/withAuth";
 import BookCard from "../../components/Books/Display/Card/Card";
+import Heading from "../../components/UI/Headings/Heading/Heading"
 
 // MUI
 import Grid from '@material-ui/core/Grid';
@@ -29,10 +30,10 @@ const Books = ({ userBooks }) => {
         <Page
             title="Books"
         >
-            <div className="heading center">
-                <h1 className="title">Your Books</h1>
-            </div>
-
+            <Heading
+                title="Your Books"
+                center
+            />
             <Grid container spacing={3} justify="center">
                 {books.map(book => (
                     <BookCard book={book} key={uuid()} />

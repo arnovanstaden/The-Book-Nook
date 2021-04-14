@@ -5,6 +5,9 @@ import { useSnackbar } from 'notistack';
 // Context
 import { LoaderContext } from "../../../context/loader";
 
+// Components
+import Heading from "../../UI/Headings/Heading/Heading";
+
 // MUI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -89,10 +92,11 @@ const ISBNForm = ({ setBook, setOption }) => {
     return (
         <>
             <div className={styles.form}>
-                <div className="heading center">
-                    <h1 className="title">Search by ISBN</h1>
-                    <h6 className="subtitle">Please enter the ISBN number below:</h6>
-                </div>
+                <Heading
+                    title="Search by ISBN"
+                    subtitle="Please enter the ISBN number below:"
+                    center
+                />
                 <TextField
                     className={styles.input}
                     variant="outlined"

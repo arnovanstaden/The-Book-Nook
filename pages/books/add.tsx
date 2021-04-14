@@ -6,6 +6,7 @@ import withAuth from "../../components/HOC/withAuth";
 import ISBNForm from "../../components/Books/Find/ISBNForm";
 import SearchForm from "../../components/Books/Find/SearchForm";
 import SaveBookForm from "../../components/Books/Save/SaveForm";
+import Heading from "../../components/UI/Headings/Heading/Heading"
 
 // MUI
 import Button from "@material-ui/core/Button"
@@ -24,10 +25,11 @@ const AddBook = () => {
     const Options = () => {
         return (
             <div className={styles.options}>
-                <div className="heading center">
-                    <h1 className="title">Add A New Book</h1>
-                    <h6 className="subtitle">How would you like to add the book data?</h6>
-                </div>
+                <Heading
+                    title="Add A New Book"
+                    subtitle="How would you like to add the book data?"
+                    center
+                />
                 <div className={styles.buttons}>
                     <Button
                         variant="contained"
