@@ -91,3 +91,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.fab {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}

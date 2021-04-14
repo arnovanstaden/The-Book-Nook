@@ -15,7 +15,9 @@ import styles from "../../styles/pages/books/add.module.scss";
 
 const AddBook = () => {
     const [book, setBook] = useState(undefined);
-    const [option, setOption] = useState(undefined)
+    const [option, setOption] = useState(undefined);
+    const [searchResults, setSearchResults] = useState(null)
+
 
     // SubComponents
 
@@ -31,7 +33,7 @@ const AddBook = () => {
                         onClick={() => setOption("Search")}
                     >
                         Seach Author &amp; Title
-                </Button>
+                        </Button>
                     <p>or</p>
                     <Button
                         variant="contained"
@@ -39,7 +41,7 @@ const AddBook = () => {
                         onClick={() => setOption("ISBN")}
                     >
                         Enter ISBN Number
-                    </Button>
+                        </Button>
                 </div>
             </div>
         )
@@ -47,16 +49,25 @@ const AddBook = () => {
 
     const RenderConditions = () => {
         if (book) {
-            return <SaveBookForm book={book} />
+            return <SaveBookForm book={book} setBook={setBook} />
         }
         else if (!option) {
             return <Options />
         }
         else if (!book && option === "ISBN") {
-            return <ISBNForm setBook={setBook} />
+
+            return <ISBNForm
+                setBook={setBook}
+                setOption={setOption}
+            />
         }
         else if (!book && option === "Search") {
-            return <SearchForm setBook={setBook} />
+            return <SearchForm
+                setBook={setBook}
+                setOption={setOption}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+            />
         }
         return null
     }

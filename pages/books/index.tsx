@@ -35,7 +35,11 @@ const Books = ({ userBooks }) => {
                 ))}
             </Grid>
 
-            <Fab color="primary" aria-label="add" className={styles.addButton}>
+            <Fab
+                color="primary"
+                aria-label="add"
+                className="fab"
+            >
                 <Link href="/books/add">
                     <Add />
                 </Link>

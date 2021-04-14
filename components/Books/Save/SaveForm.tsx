@@ -12,20 +12,22 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
+import Fab from "@material-ui/core/Fab";
+import FindReplace from "@material-ui/icons/FindReplace"
 
 
 // Styles
 import styles from "./save.module.scss"
 
 
-const SaveBookForm = ({ book }) => {
+const SaveBookForm = ({ book, setBook }) => {
     // Config
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const { showLoader, hideLoader } = useContext(LoaderContext);
     const router = useRouter()
 
     // State
-    const [rating, setRating] = useState(2.5)
+    const [rating, setRating] = useState(2.5);
 
     // Handlers
     const handleSaveBook = (e) => {
@@ -211,6 +213,16 @@ const SaveBookForm = ({ book }) => {
                     </Button>
                 </Grid>
             </Grid >
+            {!book.isbnSearch ?
+                <Fab
+                    color="primary"
+                    aria-label="search"
+                    className="fab"
+                    onClick={() => setBook(undefined)}
+                >
+                    <FindReplace />
+                </Fab>
+                : null}
         </form>
     )
 }

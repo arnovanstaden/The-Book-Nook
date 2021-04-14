@@ -19,9 +19,8 @@ import Grid from '@material-ui/core/Grid';
 // Styles
 import styles from "./search.module.scss";
 
-const SearchForm = ({ setBook }) => {
-    // State
-    const [results, setResults] = useState(null)
+const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => {
+
 
     // Config
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -35,7 +34,7 @@ const SearchForm = ({ setBook }) => {
         let author = authorRef.current.value;
 
         // Validate
-        if (title === "" || author === "") {
+        if (title === "" && author === "") {
             enqueueSnackbar("Please ensure you've filled in all the relevant fields", {
                 variant: 'info',
             });
@@ -46,11 +45,11 @@ const SearchForm = ({ setBook }) => {
         showLoader()
         axios({
             method: "get",
-            url: `https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&intitle:${title}&maxResults=40`
+            url: `https://www.googleapis.com/books/v1/volumes?q=${title}&inauthor:${author}&maxResults=40`
         })
             .then(result => {
                 if (result.data.totalItems < 1) {
-                    enqueueSnackbar("There are no results for your search. Please ensure you've entered the ISBN number correctly.", {
+                    enqueueSnackbar("There are no searchResults for your search. Please ensure you've entered the ISBN number correctly.", {
                         variant: 'error',
                     });
                     return
@@ -92,11 +91,11 @@ const SearchForm = ({ setBook }) => {
                     }
                 })
 
-                enqueueSnackbar(`${filteredBooks.length} results found`, {
+                enqueueSnackbar(`${filteredBooks.length} searchResults found`, {
                     variant: 'success',
                 });
 
-                setResults(filteredBooks)
+                setSearchResults(filteredBooks)
                 hideLoader()
             })
             .catch(err => {
@@ -111,40 +110,50 @@ const SearchForm = ({ setBook }) => {
     // Subcomponents
     const Form = () => {
         return (
-            <div className={styles.form} >
-                <h1 className="title">Search Author &amp; Title</h1>
-                <h6 className="subtitle">Please enter the relevant info below:</h6>
-                <TextField
-                    className={styles.input}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    label="Title"
-                    name="title"
-                    autoFocus
-                    type="text"
-                    inputRef={titleRef}
-                    size="medium"
-                />
-                <TextField
-                    className={styles.input}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    label="Author"
-                    name="author"
-                    type="text"
-                    inputRef={authorRef}
-                    size="medium"
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSearch}
-                >
-                    Search Books
+            <>
+                <div className={styles.form} >
+                    <h1 className="title">Search Author &amp; Title</h1>
+                    <h6 className="subtitle">Please enter the relevant info below:</h6>
+                    <TextField
+                        className={styles.input}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Title"
+                        name="title"
+                        autoFocus
+                        type="text"
+                        inputRef={titleRef}
+                        size="medium"
+                    />
+                    <TextField
+                        className={styles.input}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Author"
+                        name="author"
+                        type="text"
+                        inputRef={authorRef}
+                        size="medium"
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSearch}
+                    >
+                        Search Books
                 </Button>
-            </div>
+                </div>
+                <Fab
+                    color="primary"
+                    aria-label="search"
+                    className="fab"
+                    onClick={() => setOption(undefined)}
+                >
+                    <FindReplace />
+                </Fab>
+            </>
         )
     }
     const SearchResults = () => {
@@ -153,7 +162,7 @@ const SearchForm = ({ setBook }) => {
                 <h1 className="title">Results</h1>
                 <h6 className="subtitle">Please choose one of the books below:</h6>
                 <Grid container spacing={3}>
-                    {results.map(book => (
+                    {searchResults.map(book => (
                         <BookCard
                             book={book}
                             setBook={setBook}
@@ -167,13 +176,13 @@ const SearchForm = ({ setBook }) => {
 
     return (
         <>
-            { results ? <SearchResults /> : <Form />}
-            {results ?
+            { searchResults ? <SearchResults /> : <Form />}
+            {searchResults ?
                 <Fab
                     color="primary"
                     aria-label="search"
-                    className={styles.searchButton}
-                    onClick={() => setResults(null)}
+                    className="fab"
+                    onClick={() => setSearchResults(null)}
                 >
                     <FindReplace />
                 </Fab>

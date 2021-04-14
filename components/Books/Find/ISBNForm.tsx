@@ -8,11 +8,13 @@ import { LoaderContext } from "../../../context/loader";
 // MUI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab"
+import FindReplace from "@material-ui/icons/FindReplace"
 
 // Styles
 import styles from "./search.module.scss";
 
-const ISBNForm = ({ setBook }) => {
+const ISBNForm = ({ setBook, setOption }) => {
     // Config
     const isbnRef = useRef<HTMLInputElement>()
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -56,6 +58,9 @@ const ISBNForm = ({ setBook }) => {
                     })
                 }
 
+                // Reset Results for normal search
+                bookResult.isbnSearch = true;
+
                 // Add Covers from Open Library 
                 bookResult.cover = {
                     small: `http://covers.openlibrary.org/b/isbn/${bookResult.isbnNumber}-M.jpg`,
@@ -78,34 +83,42 @@ const ISBNForm = ({ setBook }) => {
                 });
                 hideLoader()
             })
-
-        // NO BOOK?
     }
 
     return (
-        <div className={styles.form}>
-            <h1 className="title">Search by ISBN</h1>
-            <h6 className="subtitle">Please enter the ISBN number below:</h6>
-            <TextField
-                className={styles.input}
-                variant="outlined"
-                margin="normal"
-                required
-                label="ISBN Number"
-                name="isbn-number"
-                autoFocus
-                type="number"
-                helperText="This is the 10 or 13 digit number found near the barcode. Ignore the dashes."
-                inputRef={isbnRef}
-            />
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={getBookData}
-            >
-                Find Book
+        <>
+            <div className={styles.form}>
+                <h1 className="title">Search by ISBN</h1>
+                <h6 className="subtitle">Please enter the ISBN number below:</h6>
+                <TextField
+                    className={styles.input}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    label="ISBN Number"
+                    name="isbn-number"
+                    autoFocus
+                    type="number"
+                    helperText="This is the 10 or 13 digit number found near the barcode. Ignore the dashes."
+                    inputRef={isbnRef}
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={getBookData}
+                >
+                    Find Book
                 </Button>
-        </div>
+            </div>
+            <Fab
+                color="primary"
+                aria-label="search"
+                className="fab"
+                onClick={() => setOption(undefined)}
+            >
+                <FindReplace />
+            </Fab>
+        </>
     )
 }
 
