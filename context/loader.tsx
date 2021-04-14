@@ -1,7 +1,8 @@
 import { createContext, useState } from "react";
 
 // MUI
-import { Backdrop, CircularProgress } from "@material-ui/core"
+import Backdrop from "@material-ui/core/Backdrop"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import { makeStyles } from '@material-ui/core/styles';
 
 export const LoaderContext = createContext(null);

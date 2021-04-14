@@ -9,8 +9,8 @@ import Header from "../../components/UI/Header/Header";
 import withAuth from "../../components/HOC/withAuth";
 
 // MUI
-import { Fab } from "@material-ui/core"
-import { Add } from "@material-ui/icons"
+import Fab from "@material-ui/core/Fab"
+import Add from "@material-ui/icons/Add"
 
 
 // Styles

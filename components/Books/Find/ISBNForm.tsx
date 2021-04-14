@@ -6,7 +6,8 @@ import { useSnackbar } from 'notistack';
 import { LoaderContext } from "../../../context/loader";
 
 // MUI
-import { Button, TextField } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 // Styles
 import styles from "./search.module.scss";

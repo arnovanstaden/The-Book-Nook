@@ -7,7 +7,7 @@ import { IPage } from "../../utils/interfaces"
 import Head from "../Head/Head";
 
 // MUI
-import { Container } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 // Styles
 import styles from "./page.module.scss"

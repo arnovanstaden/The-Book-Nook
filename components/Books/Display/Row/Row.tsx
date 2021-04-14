@@ -1,5 +1,7 @@
 // MUI
-import { Layers, Star, CalendarToday } from "@material-ui/icons";
+import Layers from "@material-ui/icons/Layers"
+import Star from "@material-ui/icons/Star"
+import CalendarToday from "@material-ui/icons/CalendarToday"
 
 // styles
 import styles from "./row.module.scss";

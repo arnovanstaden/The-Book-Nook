@@ -8,9 +8,23 @@ import { useSnackbar } from 'notistack';
 import { UserContext } from '../../../context/user';
 
 // MUI
-import { AppBar, Toolbar, Menu, MenuItem, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { AccountCircle, MenuBook, Group, Home, ExitToApp } from '@material-ui/icons';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Group from '@material-ui/icons/Group';
+import Home from '@material-ui/icons/Home';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import MenuBook from '@material-ui/icons/MenuBook';
 import { useMediaQuery } from '@material-ui/core';
 
 
@@ -19,7 +33,7 @@ import styles from "./nav.module.scss";
 
 export default function Nav() {
     // Config 
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const { user, logout } = useContext(UserContext);
 
     // Handlers

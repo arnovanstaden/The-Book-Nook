@@ -8,7 +8,7 @@ import NotificationsProvider from "../UI/Notification/Notification";
 
 // MUI
 import { ThemeProvider, StylesProvider } from '@material-ui/core/styles';
-import { CssBaseline } from "@material-ui/core/"
+import CssBaseline from "@material-ui/core/CssBaseline"
 
 // Theme
 import { theme } from "../../styles/Theme/theme"

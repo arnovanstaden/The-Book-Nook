@@ -2,7 +2,7 @@ import Page from "../components/Page/Page";
 import Link from "next/link";
 
 // MUI
-import { Button } from "@material-ui/core"
+import Button from "@material-ui/core/Button"
 
 import styles from "../styles/pages/404.module.scss"
 

@@ -8,7 +8,8 @@ import SearchForm from "../../components/Books/Find/SearchForm";
 import SaveBookForm from "../../components/Books/Save/SaveForm";
 
 // MUI
-import { Button, Typography } from "@material-ui/core"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
 
 // Styles
 import styles from "../../styles/pages/books/add.module.scss";

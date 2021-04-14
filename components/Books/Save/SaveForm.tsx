@@ -8,8 +8,10 @@ import { saveBook } from "../../../utils/books"
 import { LoaderContext } from "../../../context/loader";
 
 // MUI
-import { TextField, Button, Divider } from "@material-ui/core";
-import { Rating } from '@material-ui/lab';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import Rating from '@material-ui/lab/Rating';
 
 // Styles
 import styles from "./save.module.scss"

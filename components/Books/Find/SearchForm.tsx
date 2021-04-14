@@ -10,8 +10,11 @@ import { LoaderContext } from "../../../context/loader";
 import BookRow from "../Display/Row/Row"
 
 // MUI
-import { Button, TextField, Fab } from "@material-ui/core";
-import { Image, FindReplace } from '@material-ui/icons';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import Image from "@material-ui/icons/Image"
+import FindReplace from "@material-ui/icons/FindReplace"
 
 // Styles
 import styles from "./search.module.scss";
