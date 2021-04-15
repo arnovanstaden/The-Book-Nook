@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSnackbar } from 'notistack';
 
 // Context
-import { LoaderContext } from "../../../context/loader";
+import { LoaderContext } from "../../../context/LoaderContext";
 
 // Components
 import Heading from "../../UI/Headings/Heading/Heading";
@@ -21,7 +21,7 @@ import styles from "./search.module.scss";
 const ISBNForm = ({ setBook, setOption }) => {
     // Config
     const isbnRef = useRef<HTMLInputElement>()
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const { showLoader, hideLoader } = useContext(LoaderContext);
 
     // Helpers

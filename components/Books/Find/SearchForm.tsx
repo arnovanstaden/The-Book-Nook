@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import { v4 as uuid } from 'uuid';
 
 // Context
-import { LoaderContext } from "../../../context/loader";
+import { LoaderContext } from "../../../context/LoaderContext";
 
 // Components
 import BookCard from "../Display/Card/Card";
@@ -25,7 +25,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
 
 
     // Config
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const titleRef = useRef<HTMLInputElement>()
     const authorRef = useRef<HTMLInputElement>()
     const { showLoader, hideLoader } = useContext(LoaderContext);

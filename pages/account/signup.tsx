@@ -4,8 +4,8 @@ import { useContext, useEffect } from "react";
 import { useSnackbar } from 'notistack';
 
 // Context
-import { UserContext } from "../../context/user";
-import { LoaderContext } from "../../context/loader";
+import { UserContext } from "../../context/UserContext";
+import { LoaderContext } from "../../context/LoaderContext";
 
 // Components
 import Page from "../../components/Page/Page"
@@ -24,7 +24,7 @@ import styles from "../../styles/pages/account/sign-up-in.module.scss"
 export default function SignUp() {
     // Config
     const router = useRouter();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const { user, login } = useContext(UserContext);
     const { showLoader, hideLoader } = useContext(LoaderContext);
 

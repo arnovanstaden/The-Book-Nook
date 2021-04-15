@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 
 
 // Context
-import { UserContext } from '../../../context/user';
+import { UserContext } from '../../../context/UserContext';
 
 // MUI
 import AppBar from '@material-ui/core/AppBar';

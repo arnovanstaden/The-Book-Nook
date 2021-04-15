@@ -5,7 +5,7 @@ import Page from "../components/Page/Page";
 import withAuth from "../components/HOC/withAuth"
 
 // Context
-import { LoaderContext } from "../context/loader";
+import { LoaderContext } from "../context/LoaderContext";
 
 // Styles
 import styles from '../styles/pages/index.module.scss'

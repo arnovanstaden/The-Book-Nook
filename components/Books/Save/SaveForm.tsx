@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { saveBook } from "../../../utils/books";
 
 // Context
-import { LoaderContext } from "../../../context/loader";
+import { LoaderContext } from "../../../context/LoaderContext";
 
 // MUI
 import TextField from "@material-ui/core/TextField";
@@ -24,7 +24,7 @@ import styles from "./save.module.scss"
 
 const SaveBookForm = ({ book, setBook }) => {
     // Config
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const { showLoader, hideLoader } = useContext(LoaderContext);
     const router = useRouter()
     const isMobileDevice = useMediaQuery('(max-width:600px)');

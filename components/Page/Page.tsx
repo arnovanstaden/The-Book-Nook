@@ -10,7 +10,7 @@ import { IPage } from "../../utils/interfaces"
 import Head from "../Head/Head";
 
 // Context
-import { LoaderContext } from "../../context/loader";
+import { LoaderContext } from "../../context/LoaderContext";
 
 // MUI
 import Container from "@material-ui/core/Container";

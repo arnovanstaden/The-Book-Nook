@@ -1,6 +1,6 @@
 // Context
-import { UserProvider } from "../../context/user"
-import { LoaderProvider } from "../../context/loader"
+import { UserProvider } from "../../context/UserContext"
+import { LoaderProvider } from "../../context/LoaderContext"
 
 // Components
 import Nav from "../UI/Nav/Nav";
