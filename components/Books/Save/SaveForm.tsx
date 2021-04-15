@@ -28,7 +28,6 @@ const SaveBookForm = ({ book, setBook }) => {
     const { showLoader, hideLoader } = useContext(LoaderContext);
     const router = useRouter()
     const isMobileDevice = useMediaQuery('(max-width:600px)');
-    console.log(isMobileDevice)
 
     // State
     const [rating, setRating] = useState(2.5);
@@ -57,13 +56,12 @@ const SaveBookForm = ({ book, setBook }) => {
         }
         bookData.rating = rating;
         bookData.cover = book.cover
-        console.log(bookData)
 
         // Send Data
         showLoader()
         saveBook(bookData)
             .then(saveResult => {
-                router.push(`/books/view/${saveResult.book.id}`)
+                router.push(`/books/view/${saveResult.id}`)
                 enqueueSnackbar(saveResult.message, {
                     variant: 'success',
                 });

@@ -19,27 +19,16 @@ import Container from '@material-ui/core/Container';
 import styles from "../../styles/pages/account/sign-up-in.module.scss"
 
 
-export default function SignIn() {
+export default function ResetPassword() {
     // Config
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { signIn, currentUser } = useContext(UserContext);
+    const { resetPassword } = useContext(UserContext);
     const { showLoader, hideLoader } = useContext(LoaderContext);
     const emailRef = useRef<HTMLInputElement>()
 
-    const passwordRef = useRef<HTMLInputElement>()
-
-
-    // Check Already SignedIn
-    useEffect(() => {
-        if (currentUser) {
-            router.replace("/")
-        }
-    }, [])
-
-
     // Handlers
-    const handleAuth = (e) => {
+    const handlePasswordReset = (e) => {
         showLoader()
         e.preventDefault();
 
@@ -54,23 +43,19 @@ export default function SignIn() {
         }
 
         // Data
-        // Data
-        const authData = {
-            email: emailRef.current.value.toLowerCase(),
-            password: passwordRef.current.value,
-        }
+        const email = emailRef.current.value.toLowerCase();
 
-        signIn(authData)
+        resetPassword(email)
             .then(data => {
                 hideLoader()
-                enqueueSnackbar(`Welcome back ${data.displayName}!`, {
+                enqueueSnackbar(`Password Reset Link Sent!`, {
                     variant: 'success',
                 });
                 router.replace("/")
             })
             .catch(err => {
                 hideLoader()
-                return enqueueSnackbar(err.message, {
+                return enqueueSnackbar("Error sending password reset link", {
                     variant: 'error',
                 });
             })
@@ -78,7 +63,7 @@ export default function SignIn() {
 
     return (
         <Page
-            title="Sign In"
+            title="Reset Password"
             classNameProp={styles.page}
             center
         >
@@ -87,7 +72,7 @@ export default function SignIn() {
                     <img src="/images/logos/logo-wide-black.svg" alt="The Book Nook Logo" />
                 </div>
                 <div className={styles.signin}>
-                    <h1>Sign In</h1>
+                    <h1>Reset Password</h1>
                     <form id="auth-form">
                         <TextField
                             variant="outlined"
@@ -102,36 +87,19 @@ export default function SignIn() {
                             type="email"
                             inputRef={emailRef}
                         />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            inputRef={passwordRef}
-                        />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={handleAuth}
+                            onClick={handlePasswordReset}
                         >
-                            Sign In
+                            Reset Password
                     </Button>
-                        <Grid container className={styles.options}>
-                            <Grid item xs>
-                                <Link href="/account/reset-password" variant="body2">
-                                    Forgot password?
-                        </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="/account/signup" variant="body2">
-                                    {"Sign Up"}
+                        <Grid container className={styles.options} justify="center">
+                            <Grid item >
+                                <Link href="/account/signin" variant="body2">
+                                    Sign In
                                 </Link>
                             </Grid>
                         </Grid>

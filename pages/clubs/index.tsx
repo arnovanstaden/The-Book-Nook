@@ -11,9 +11,7 @@ const Clubs = () => {
         <Page
             title="Your Clubs"
         >
-            <Header
-                heading={`${getUsername("possessive")} Clubs`}
-            />
+            <h1>Clubs</h1>
 
         </Page>
     )

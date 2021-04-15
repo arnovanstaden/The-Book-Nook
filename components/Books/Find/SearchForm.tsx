@@ -12,6 +12,7 @@ import Heading from "../../UI/Headings/Heading/Heading"
 
 // MUI
 import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import FindReplace from "@material-ui/icons/FindReplace"
@@ -112,7 +113,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
     // Subcomponents
     const Form = () => {
         return (
-            <>
+            <Container maxWidth="xs">
                 <div className={styles.form} >
                     <Heading
                         title="Search Author &amp; Title"
@@ -129,8 +130,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
                         autoFocus
                         type="text"
                         inputRef={titleRef}
-                        size="medium"
-                    />
+                        fullWidth />
                     <TextField
                         className={styles.input}
                         variant="outlined"
@@ -140,8 +140,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
                         name="author"
                         type="text"
                         inputRef={authorRef}
-                        size="medium"
-                    />
+                        fullWidth />
                     <Button
                         variant="contained"
                         color="primary"
@@ -161,7 +160,7 @@ const SearchForm = ({ setBook, setOption, searchResults, setSearchResults }) => 
                         <FindReplace />
                     </Fab>
                 </Tooltip>
-            </>
+            </Container>
         )
     }
     const SearchResults = () => {

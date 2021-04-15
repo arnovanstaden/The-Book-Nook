@@ -1,6 +1,6 @@
 import { authenticateUser, checkAuth } from "../../utils/user";
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { useSnackbar } from 'notistack';
 
 // Context
@@ -25,26 +25,28 @@ export default function SignUp() {
     // Config
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { user, login } = useContext(UserContext);
+    const { signUp, currentUser } = useContext(UserContext);
     const { showLoader, hideLoader } = useContext(LoaderContext);
+    const emailRef = useRef<HTMLInputElement>()
+    const usernameRef = useRef<HTMLInputElement>()
     const passwordRef = useRef<HTMLInputElement>()
     const passwordConfirmRef = useRef<HTMLInputElement>()
 
     // Check Already SignedIn
     useEffect(() => {
-        if (user.auth) {
+        if (currentUser) {
             router.replace("/")
         }
     }, [])
 
     // Handlers
-    const handleAuth = (e) => {
+    const handleAuth = async (e) => {
         showLoader()
         e.preventDefault();
 
         let form = document.getElementById("auth-form") as HTMLFormElement;
 
-        // Validate
+        // Validate Form
         if (form.checkValidity() === false) {
             hideLoader()
             return enqueueSnackbar("Please complete all the relevant fields", {
@@ -52,40 +54,44 @@ export default function SignUp() {
             });
         }
 
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        // Data
+        const authData = {
+            email: emailRef.current.value.toLowerCase(),
+            password: passwordRef.current.value,
+            displayName: usernameRef.current.value,
+        }
+
+        // Passwords match
+        if (authData.password !== passwordConfirmRef.current.value) {
             hideLoader()
             return enqueueSnackbar("Your passwords don't match. Please try again.", {
                 variant: 'error',
             });
         }
 
-        // Data
-        let authData = {
-            email: "",
-            password: ""
-        }
-        let formData = new FormData(form)
-        for (var key of formData.keys()) {
-            authData[key] = formData.get(key)
+        // Password Length
+        if (authData.password.length < 6) {
+            hideLoader()
+            return enqueueSnackbar("Your password needs to be at least 6 characters long.", {
+                variant: 'error',
+            });
         }
 
-        authData.email = authData.email.toLowerCase();
-
-        authenticateUser(authData, true)
-            .then(data => {
+        signUp(authData)
+            .then(result => {
                 hideLoader();
-                login(data.user)
-                enqueueSnackbar(data.message, {
+                enqueueSnackbar(`Welcome to The Book Nook ${result.displayName}!`, {
                     variant: 'success',
                 });
-                router.replace("/account")
+                router.replace("/account/")
             })
             .catch(err => {
-                hideLoader();
-                enqueueSnackbar(err.message, {
+                hideLoader()
+                return enqueueSnackbar(err.message, {
                     variant: 'error',
                 });
             })
+
     }
 
     return (
@@ -95,7 +101,7 @@ export default function SignUp() {
         >
             <Container component="main" maxWidth="xs">
                 <div className={styles.logo}>
-                    {/* <img src="/public/images/logos/" alt=""/> */}
+                    <img src="/images/logos/logo-wide-black.svg" alt="The Book Nook Logo" />
                 </div>
                 <div className={styles.signin}>
                     <h1>Sign Up</h1>
@@ -106,20 +112,23 @@ export default function SignUp() {
                             required
                             fullWidth
                             id="email"
-                            label="Your Name"
-                            name="username"
+                            label="Email Address"
+                            name="email"
+                            type="email"
+                            inputRef={emailRef}
                             autoFocus
-                            type="text"
                         />
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            type="email"
+                            id="username"
+                            label="Full Name"
+                            name="username"
+                            autoFocus
+                            type="text"
+                            inputRef={usernameRef}
                         />
                         <TextField
                             variant="outlined"
@@ -152,12 +161,7 @@ export default function SignUp() {
                         >
                             Sign Up
                     </Button>
-                        <Grid container className={styles.options}>
-                            <Grid item xs>
-                                <Link href="#">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
+                        <Grid container className={styles.options} justify="center">
                             <Grid item>
                                 <Link href="/account/signin">
                                     {"Already have an account? Sign In"}

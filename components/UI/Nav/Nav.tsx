@@ -34,15 +34,18 @@ import styles from "./nav.module.scss";
 export default function Nav() {
     // Config 
     const { enqueueSnackbar } = useSnackbar();
-    const { user, logout } = useContext(UserContext);
+    const { signOut, currentUser } = useContext(UserContext);
 
     // Handlers
 
     const handleLogout = () => {
-        logout();
-        enqueueSnackbar('Logout Successful', {
-            variant: 'success',
-        });
+        signOut()
+            .then(() => {
+                enqueueSnackbar('Logout Successful', {
+                    variant: 'success',
+                });
+            })
+            .catch(err => console.log(err))
     }
 
     // Subcomponents
@@ -209,8 +212,8 @@ export default function Nav() {
                     </a>
                 </Link>
                 {ismobileDevice ?
-                    user && user.auth ? <MobileNav /> : null
-                    : user && user.auth ? <MenuItems /> : null}
+                    currentUser ? <MobileNav /> : null
+                    : currentUser ? <MenuItems /> : null}
             </Toolbar>
         </AppBar >
     )

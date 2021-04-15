@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import Cookies from "cookie";
 import { getBooksForUser } from "../../server/utils/books";
+import { getUserBooks, getBook } from "../../utils/books"
 import { v4 as uuid } from 'uuid';
 
 
@@ -23,8 +24,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 // Styles
 import styles from "../../styles/pages/books/index.module.scss";
 
-const Books = ({ userBooks }) => {
-    const books = JSON.parse(userBooks);
+const Books = ({ books }) => {
 
     return (
         <Page
@@ -34,11 +34,13 @@ const Books = ({ userBooks }) => {
                 title="Your Books"
                 center
             />
+
             <Grid container spacing={3} justify="center">
                 {books.map(book => (
                     <BookCard book={book} key={uuid()} />
                 ))}
             </Grid>
+
             <Tooltip title="Add New Book" aria-label="Add New Book">
                 <Fab
                     color="primary"
@@ -59,20 +61,8 @@ export default withAuth(Books);
 
 // Props
 export async function getServerSideProps(context) {
-    const cookies = Cookies.parse(context.req.headers.cookie);
-    const token = cookies["TBN-Token"];
-
-    const booksResult = await getBooksForUser(token, "token")
-        .then(result => {
-            return result
-        })
-        .catch(err => {
-            console.log(err)
-        });
-
-    const userBooks = JSON.stringify(booksResult);
-
+    const books = await getUserBooks();
     return {
-        props: { userBooks },
+        props: { books },
     }
 }
