@@ -1,6 +1,6 @@
 import { authenticateUser, checkAuth } from "../../utils/user";
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useSnackbar } from 'notistack';
 
 // Context
@@ -27,6 +27,8 @@ export default function SignUp() {
     const { enqueueSnackbar } = useSnackbar();
     const { user, login } = useContext(UserContext);
     const { showLoader, hideLoader } = useContext(LoaderContext);
+    const passwordRef = useRef<HTMLInputElement>()
+    const passwordConfirmRef = useRef<HTMLInputElement>()
 
     // Check Already SignedIn
     useEffect(() => {
@@ -44,14 +46,23 @@ export default function SignUp() {
 
         // Validate
         if (form.checkValidity() === false) {
-            return alert("Please complete all the relevant fields")
+            hideLoader()
+            return enqueueSnackbar("Please complete all the relevant fields", {
+                variant: 'error',
+            });
+        }
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            hideLoader()
+            return enqueueSnackbar("Your passwords don't match. Please try again.", {
+                variant: 'error',
+            });
         }
 
         // Data
         let authData = {
             email: "",
             password: ""
-
         }
         let formData = new FormData(form)
         for (var key of formData.keys()) {
@@ -119,6 +130,18 @@ export default function SignUp() {
                             label="Password"
                             type="password"
                             id="password"
+                            inputRef={passwordRef}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password-confirmation"
+                            label="Password Confirmation"
+                            type="password"
+                            id="password-confirmation"
+                            inputRef={passwordConfirmRef}
                         />
                         <Button
                             type="submit"

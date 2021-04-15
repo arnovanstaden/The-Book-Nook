@@ -43,7 +43,10 @@ export default function SignIn() {
 
         // Validate
         if (form.checkValidity() === false) {
-            return alert("Please complete all the relevant fields")
+            hideLoader()
+            return enqueueSnackbar("Please complete all the relevant fields", {
+                variant: 'error',
+            });
         }
 
         // Data
