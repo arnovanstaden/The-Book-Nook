@@ -16,6 +16,7 @@ interface ICard {
 
 export default function Book({ book, setBook }: ICard) {
 
+
     // handlers
 
     const handleBookSelect = () => {
@@ -28,6 +29,7 @@ export default function Book({ book, setBook }: ICard) {
 
     // subcomponents
     const CardContent = () => {
+
         return (
             <div className={styles.book}>
                 <div className={styles.image}>
@@ -35,7 +37,7 @@ export default function Book({ book, setBook }: ICard) {
                 </div>
                 <div className={styles.text}>
                     <p>{book.title}</p>
-                    <small>{book.authors}</small>
+                    <small>{book.authors.join(", ")}</small>
                 </div>
             </div>
         )

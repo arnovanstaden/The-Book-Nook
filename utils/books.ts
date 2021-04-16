@@ -25,17 +25,17 @@ export const saveBook = async (book) => {
     return saveResult
 }
 
-export const getUserBooks = async () => {
-    const userBooks = booksRef.get().then((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
-        return data
-    })
+export const getUserBooks = async (uid: string) => {
+    const userBooks = booksRef.where("user", "==", uid).get()
+        .then((snapshot) => {
+            const data = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            return data
+        })
     return userBooks
 }
-
 
 export const getBook = async (id: string) => {
     const book = booksRef.doc(id).get().then((doc) => {

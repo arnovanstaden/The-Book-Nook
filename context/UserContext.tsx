@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
-import { logoutUser, checkAuth, getUsername } from "../utils/user";
 import { useRouter } from "next/router";
-import { auth } from "../config/firebase"
+import { auth } from "../config/firebase";
+import nookies from 'nookies';
 
 export const UserContext = createContext(null);
 
@@ -48,6 +48,7 @@ export const UserProvider = ({ children }) => {
         return await auth.sendPasswordResetEmail(email)
     }
 
+    // Set user on Auth Change
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
@@ -55,7 +56,21 @@ export const UserProvider = ({ children }) => {
         })
 
         return unsubscribe
-    }, [])
+    }, []);
+
+    // Set Cookies for SSR
+    useEffect(() => {
+        return auth.onIdTokenChanged(async (user) => {
+            if (!user) {
+                setCurrentUser(null);
+                nookies.set(undefined, 'TBN-Token', '', { path: '/' });
+            } else {
+                const token = await user.getIdToken();
+                setCurrentUser(user);
+                nookies.set(undefined, 'TBN-Token', token, { path: '/' });
+            }
+        });
+    }, []);
 
     // Context Value
     const value = {

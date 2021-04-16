@@ -17,7 +17,9 @@ export interface IHeader {
 
 export interface IBook {
     title: string;
-    authors: string;
+    authors: string[];
+    description: string;
+    recommendation: string;
     genre: string;
     pages: number;
     rating: number;

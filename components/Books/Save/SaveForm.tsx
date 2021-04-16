@@ -6,6 +6,7 @@ import { saveBook } from "../../../utils/books";
 
 // Context
 import { LoaderContext } from "../../../context/LoaderContext";
+import { UserContext } from "../../../context/UserContext";
 
 // MUI
 import TextField from "@material-ui/core/TextField";
@@ -26,6 +27,7 @@ const SaveBookForm = ({ book, setBook }) => {
     // Config
     const { enqueueSnackbar } = useSnackbar();
     const { showLoader, hideLoader } = useContext(LoaderContext);
+    const { currentUser } = useContext(UserContext);
     const router = useRouter()
     const isMobileDevice = useMediaQuery('(max-width:600px)');
 
@@ -48,14 +50,18 @@ const SaveBookForm = ({ book, setBook }) => {
         // Get Data
         let bookData = {
             rating: null,
-            cover: ""
+            cover: "",
+            user: "",
+            authors: []
         }
         let formData = new FormData(form);
         for (var key of formData.keys()) {
             bookData[key] = formData.get(key)
         }
         bookData.rating = rating;
-        bookData.cover = book.cover
+        bookData.cover = book.cover;
+        bookData.user = currentUser.uid;
+        bookData.authors = book.authors
 
         // Send Data
         showLoader()
@@ -82,7 +88,7 @@ const SaveBookForm = ({ book, setBook }) => {
     const publishedDate = book.publishedDate ? book.publishedDate.substring(0, book.publishedDate.indexOf("-")) : undefined;
     const pageCount = book.pageCount ? book.pageCount : undefined;
     const genre = book.categories ? book.categories[0] : undefined;
-    const authors = book.authors.length > 1 ? book.authors.join(" ") : book.authors;
+    const authors = book.authors.join(", ")
 
     return (
         <form name="save-book-form" id="save-book-form" onSubmit={handleSaveBook}>

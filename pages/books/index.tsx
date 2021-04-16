@@ -1,9 +1,9 @@
-import axios from "axios";
 import Link from "next/link";
-import Cookies from "cookie";
-import { getBooksForUser } from "../../server/utils/books";
-import { getUserBooks, getBook } from "../../utils/books"
+import { getUserBooks } from "../../utils/books"
 import { v4 as uuid } from 'uuid';
+import nookies from 'nookies';
+import { verifyToken } from "../../utils/firebase/admin";
+import { GetServerSideProps } from 'next';
 
 
 // Components
@@ -20,11 +20,11 @@ import Fab from "@material-ui/core/Fab"
 import Add from "@material-ui/icons/Add"
 import Tooltip from '@material-ui/core/Tooltip';
 
-
 // Styles
 import styles from "../../styles/pages/books/index.module.scss";
 
 const Books = ({ books }) => {
+
 
     return (
         <Page
@@ -60,8 +60,12 @@ export default withAuth(Books);
 
 
 // Props
-export async function getServerSideProps(context) {
-    const books = await getUserBooks();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const cookies = nookies.get(context);
+    const token = cookies["TBN-Token"]
+    const user = await verifyToken(token);
+    const books = await getUserBooks(user.uid);
+
     return {
         props: { books },
     }
